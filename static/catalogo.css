@@ -1,0 +1,72 @@
+body {
+      font-family: Bahnschrift, sans-serif;
+      background-color: #161314;
+      color: #EBEBEB;
+    }
+
+.container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+.lista-servicios {
+  width: 80vw;
+  display:grid;
+  grid-template-columns: 50% 50%;
+  grid-row: auto auto;
+  grid-row-gap: 20px;
+}
+
+.servicio-titulo {
+  display:grid;
+  grid-template-columns: 65% 30%;
+  grid-column-gap: 10%;
+  grid-row: auto auto;
+  img {
+    width: 130px;
+    height: 130px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px #000000;
+  }
+}
+
+.servicio{
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 80px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #2C2628 ;
+    color: #EBEBEB;
+    box-shadow: 0 0 10px #ffffff;
+    margin: 30px;
+    margin-top: 0px;
+}
+
+.boton-principal {
+    cursor: pointer;
+    width: 100%;
+    background-color: #69B5B0 ;
+}
+
+input{
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    width: 250px;
+}
+
+a{
+    display:block;
+    cursor: pointer;
+    text-align: right;
+    margin-top: 10px;  
+    color: #EBEBEB;
+    text-decoration: none;
+}
