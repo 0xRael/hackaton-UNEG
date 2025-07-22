@@ -42,10 +42,6 @@ option{
     padding: 10px;
 }
 
-.boton{
-    cursor: pointer;
-
-}
 .register{
     display: block;
     cursor: pointer;
