@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <link rel= "stylesheet" href="registro-login.css">
+    <link rel= "stylesheet" href="../static/registro-login.css">
     
 </head>
 <body>
@@ -12,11 +12,11 @@
         <h1>REGISTRO</h1>
     <div >
 
-        <form class="formulario" action="login.html" id="formulario" method="post">
+        <form class="formulario" action="/registro.html" id="formulario" method="post">
 
-        <input type="text" id="nombreusuario" placeholder="Nombre y Apellido" required> <br>
-        <input type="email" id="correo" placeholder="correo electronico" required> <br>
-        <input type="password" id="contraseña" placeholder="contraseña" required> <br>
+        <input type="text" name="nombreusuario" id="nombreusuario" placeholder="Nombre y Apellido" required> <br>
+        <input type="email" name="correo" id="correo" placeholder="correo electronico" required> <br>
+        <input type="password" name="contraseña" id="contraseña" placeholder="contraseña" required> <br>
 
 
         <select class="genero" id="genero" name ="genero" required>
@@ -27,7 +27,7 @@
         </select> <br>
 
         <button class="register" type="submit" id="registro">Registro</button>
-        <script src="registro.js" defer></script>
+        <script src="../static/registro.js" defer></script>
         </form>
     </div>
     <br>
