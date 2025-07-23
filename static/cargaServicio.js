@@ -9,5 +9,17 @@ document.getElementById('service-form').addEventListener('submit', function (e) 
 
   if (!titulo || !descripcion || isNaN(precio)) return;
 
-  document.getElementById('service-form').submit();
+  const nuevoServicio = {titulo, descripcion, precio, duracion, domicilio: aDomicilio};
+
+  const item = document.createElement('li');
+  item.innerHTML = `
+    <h2><strong>${nuevoServicio.titulo}</strong></h2><br>
+    ${nuevoServicio.descripcion}<br>
+    <em>Precio:</em> Bs ${nuevoServicio.precio.toFixed(2)} —
+    <em>Duración:</em> ${nuevoServicio.duracion}<br>
+    <em>A Domicilio:</em>
+  `;
+  document.getElementById('services').appendChild(item);
+
+  document.getElementById('service-form').reset();
 });
