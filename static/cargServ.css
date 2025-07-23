@@ -1,0 +1,144 @@
+:root {
+  --night: #161314;
+  --raisin-black: #2c2628;
+  --lapis-lazuli: #17599f;
+  --verdigris: #69b5b0;
+  --antiflash-white: #ebebeb;
+}
+
+body {
+  font-family: Bahnschrift, sans-serif;
+  background-color: var(--night);
+  color: var(--antiflash-white);
+  margin: 0;
+  padding: 20px;
+}
+
+header h1 {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: bold;
+  background: linear-gradient(to right, var(--lapis-lazuli), var(--verdigris), var(--antiflash-white));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+section {
+  margin: 20px auto;
+  max-width: 600px;
+  background-color: var(--raisin-black);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px var(--lapis-lazuli);
+}
+
+form input {
+  padding: 10px;
+  margin-right: 10px;
+  width: calc(50% - 15px);
+  background-color: var(--night);
+  color: var(--antiflash-white);
+  border: 1px solid var(--verdigris);
+  border-radius: 8px;
+}
+
+form button {
+  padding: 10px;
+  background-color: var(--lapis-lazuli);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+form button:hover {
+  background-color: var(--verdigris);
+}
+
+form textarea {
+  padding: 10px;
+  margin: 10px 0;
+  width: 95%;
+  background-color: var(--night);
+  color: var(--antiflash-white);
+  border: 1px solid var(--verdigris);
+  border-radius: 10px;
+  resize: none;
+}
+
+form select {
+  padding: 10px;
+  background-color: var(--night);
+  color: var(--antiflash-white);
+  border: 1px solid var(--verdigris);
+  border-radius: 8px;
+  width: 100%;
+}
+
+.switch-container {
+  margin-bottom: 10px;
+}
+
+.switch-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: var(--antiflash-white);
+}
+
+.switch-label input[type="checkbox"] {
+  display: none;
+}
+
+.switch-slider {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  background-color: var(--raisin-black);
+  border: 2px solid var(--verdigris);
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.switch-slider::before {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  left: 2px;
+  top: 2px;
+  background-color: var(--lapis-lazuli);
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.switch-label input:checked + .switch-slider::before {
+  transform: translateX(24px);
+  background-color: var(--verdigris);
+}
+
+
+form input,
+form select {
+  flex: 1; /* ✅ para que ambos ocupen el mismo ancho dentro del contenedor */
+}
+
+form textarea {
+  height: 90px;
+}
+
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: var(--raisin-black);
+  margin: 5px 0;
+  padding: 10px;
+  border-left: 5px solid var(--lapis-lazuli);
+  color: var(--antiflash-white);
+}
