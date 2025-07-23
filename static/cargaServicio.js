@@ -17,10 +17,11 @@ document.getElementById('service-form').addEventListener('submit', function (e) 
 
   const item = document.createElement('li');
   item.innerHTML = `
-    <strong>${nuevoServicio.titulo}</strong><br>
+    <h2><strong>${nuevoServicio.titulo}</strong></h2><br>
     ${nuevoServicio.descripcion}<br>
     <em>Precio:</em> Bs ${nuevoServicio.precio.toFixed(2)} —
-    <em>Duración:</em> ${nuevoServicio.duracion}
+    <em>Duración:</em> ${nuevoServicio.duracion}<br>
+    <em>A Domicilio:</em>
   `;
   document.getElementById('services').appendChild(item);
 
