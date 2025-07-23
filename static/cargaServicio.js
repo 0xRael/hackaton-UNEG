@@ -57,7 +57,7 @@ function renderizarServicios() {
           <p>${serv.descripcion}</p>
           <p><strong>Precio:</strong> Bs ${serv.precio.toFixed(2)}</p>
           <p><strong>Categoría:</strong> ${serv.category}</p>
-          <p><strong>A domicilio:</strong> ${serv.domicilio ? "Disponible 🏠" : "No disponible ❌"}</p>
+          <p><strong>A domicilio:</strong> ${serv.domicilio ? "Disponible" : "No disponible"}</p>
           <div class="service-actions">
             <button type="button" class="btn-edit" onclick="editarServicio(${index})">✏️ Editar</button>
             <button type="button" class="btn-delete" onclick="eliminarServicio(${index})">🗑️ Eliminar</button>
