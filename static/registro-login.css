@@ -1,5 +1,4 @@
 
-
 body {
       display: flex;
       justify-content: center;
@@ -19,17 +18,18 @@ body {
     display:flex;
     flex-direction: column;
     text-align: center;
-    border: 2px solid black;
+    border: 2px solid #161314;
     border-radius: 20px;
     padding: 80px;
     padding-top: 50px;
     padding-bottom: 50px;
     background-color: #2C2628 ;
     color: #EBEBEB;
-    box-shadow: 0 0 10px #ffffff;
+    box-shadow: 0 0 10px #EBEBEB;
 }
+
 .genero{
-    border: 2px solid black;
+    border: 2px solid #161314;
     border-radius: 20px;
     padding: 10px;
     cursor: pointer;
@@ -37,7 +37,7 @@ body {
 }
 
 option{
-    border: 2px solid black;
+    border: 2px solid #161314;
     border-radius: 20px;
     padding: 10px;
 }
@@ -48,16 +48,16 @@ option{
     width: 250px;
     background-color: #69B5B0;
     transition: all .3s ease;
-    border: 2px solid black;
+    border: 2px solid #161314;
     border-radius: 5px;
     padding: 10px;
     margin: 0 auto; 
 }
+
 .register:hover{
     background-color: #579591 ;
     transform: translateY(-3px);
 }
-
 
 .login {
     display: block;
@@ -65,7 +65,7 @@ option{
     width: 250px;
     background-color: #69B5B0;
     transition: all .3s ease;
-    border: 2px solid black;
+    border: 2px solid #161314;
     border-radius: 5px;
     padding: 10px;
     margin: 0 auto; 
@@ -76,7 +76,7 @@ option{
 }
 
 input{
-    border: 2px solid black;
+    border: 2px solid #161314;
     border-radius: 5px;
     padding: 10px;
     width: 250px;

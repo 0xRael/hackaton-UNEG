@@ -1,5 +1,5 @@
 * {
-    font-family: Bahnschrift;
+    font-family: Bahnschrift, sans-serif;
     color: #EBEBEB;
 }
 
@@ -24,7 +24,7 @@ body {
     display: inline-block;
     margin: 0;
     padding: 0;
-    margin-right: 60px;
+    margin-right: 30px;
     font-size: 16px;
     background-color: #2c2628;
     border: 0;
@@ -39,9 +39,14 @@ body {
     text-decoration: none;
     color: #EBEBEB;
     margin: 0;
+    padding: 12px;
 }
 
 .navbar > ul > li > a:hover{
-    color: blue;
+    color: #17599f;
 }
+
+
+
+
 
