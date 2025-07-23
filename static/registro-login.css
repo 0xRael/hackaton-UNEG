@@ -14,7 +14,7 @@ body {
     text-align: center;
 }
 
-.formulario{
+#formulario{
     display:flex;
     flex-direction: column;
     text-align: center;

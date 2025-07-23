@@ -46,7 +46,52 @@ body {
     color: #17599f;
 }
 
+/* Animaciones
+FadeIn - el objeto aparece gradualmente
+FadeDown, FadeLeft,FadeUp - el objeto se desplaza hacia una direccion mientras aparece    
+*/
 
+.FadeIn {
+    animation: FadeIn 1.5s;
+}
 
+.FadeUp {
+    animation: FadeUp 3s;
+}
 
+.FadeDown {
+    animation: FadeDown 3s;
+}
 
+.FadeLeft {
+    animation: FadeLeft 2s;
+}
+
+@keyframes FadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes FadeUp {
+    0% {opacity: 0;}
+    0% {transform: translateY(80px);}
+    30% {transform: translateY(10px);}
+    60% {transform: translateY(0px);}
+    100% {opacity: 1;}
+}
+
+@keyframes FadeDown {
+    0% {opacity: 0;}
+    0% {transform: translateY(-80px);}
+    30% {transform: translateY(-10px);}
+    60% {transform: translateY(0px);}
+    100% {opacity: 1;}
+}
+
+@keyframes FadeLeft {
+    0% {opacity: 0;}
+    0% {transform: translatex(120px);}
+    40% {transform: translateX(20px);}
+    80% {transform: translateX(0px);}
+    100% {opacity: 1;}
+}
