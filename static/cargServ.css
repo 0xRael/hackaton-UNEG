@@ -19,61 +19,63 @@ h1 {
   font-size: 4rem;
   font-weight: bold;
   background: linear-gradient(to right, var(--lapis-lazuli), var(--verdigris), var(--antiflash-white));
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-
 section {
   margin: 20px auto;
-  max-width: 600px;
+  max-width: 800px;
   background-color: var(--raisin-black);
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 0 10px var(--lapis-lazuli);
 }
 
-form input {
+.horizontal-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.horizontal-group > * {
+  flex: 1;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="file"],
+form select,
+form textarea {
   padding: 10px;
-  margin-right: 10px;
-  width: calc(50% - 15px);
+  margin-bottom: 10px;
   background-color: var(--night);
   color: var(--antiflash-white);
   border: 1px solid var(--verdigris);
   border-radius: 8px;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form textarea {
+  height: 90px;
+  resize: none;
 }
 
 form button {
   padding: 10px;
   background-color: var(--lapis-lazuli);
-  color: white;
+  color: var(--night);
   border: none;
   cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
   transition: background-color 0.2s ease;
 }
 
 form button:hover {
   background-color: var(--verdigris);
-}
-
-form textarea {
-  padding: 10px;
-  margin: 10px 0;
-  width: 95%;
-  background-color: var(--night);
-  color: var(--antiflash-white);
-  border: 1px solid var(--verdigris);
-  border-radius: 10px;
-  resize: none;
-}
-
-form select {
-  padding: 10px;
-  background-color: var(--night);
-  color: var(--antiflash-white);
-  border: 1px solid var(--verdigris);
-  border-radius: 8px;
-  width: 100%;
 }
 
 .switch-container {
@@ -119,16 +121,22 @@ form select {
   background-color: var(--verdigris);
 }
 
-
-form input,
-form select {
-  flex: 1; /* ✅ para que ambos ocupen el mismo ancho dentro del contenedor */
+#preview-box {
+  margin-top: 15px;
+  border: 1px solid var(--verdigris);
+  padding: 10px;
+  border-radius: 8px;
+  background-color: var(--raisin-black);
+  text-align: center;
 }
 
-form textarea {
-  height: 90px;
+#img-preview {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 8px var(--lapis-lazuli);
+  display: none;
 }
-
 
 ul {
   list-style-type: none;
@@ -136,9 +144,68 @@ ul {
 }
 
 li {
+  margin: 10px 0;
+  padding: 0;
+}
+
+.service-card {
+  display: flex;
+  gap: 20px;
   background-color: var(--raisin-black);
-  margin: 5px 0;
-  padding: 10px;
-  border-left: 5px solid var(--lapis-lazuli);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px var(--lapis-lazuli);
+  align-items: center;
+}
+
+.service-img img {
+  width: 140px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 0 5px var(--lapis-lazuli);
+}
+
+.service-info {
+  flex: 1;
   color: var(--antiflash-white);
 }
+
+.service-info h2 {
+  color: var(--lapis-lazuli);
+  margin: 0 0 10px;
+}
+
+.service-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.service-actions button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+  background-color: var(--lapis-lazuli);
+  color: var(--night);
+}
+
+.btn-edit:hover {
+  background-color: var(--verdigris);
+}
+
+.btn-delete {
+  background-color: #d63f3f;
+  color: var(--antiflash-white);
+}
+
+.btn-delete:hover {
+  background-color: #b52c2c;
+}
+
