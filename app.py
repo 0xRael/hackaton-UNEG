@@ -20,6 +20,18 @@ def init_db():
             genero TEXT NOT NULL
         )
     ''')
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS servicios (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            titulo TEXT NOT NULL,
+            descripcion TEXT NOT NULL,
+            autor TEXT NOT NULL,
+            precio REAL NOT NULL,
+            duracion TEXT NOT NULL,
+            a_domicilio TEXT NOT NULL,
+            imagen TEXT
+        )
+    ''')
     conn.commit()
     conn.close()
 
@@ -76,7 +88,47 @@ def login():
 
 @app.route("/catalogo.html")
 def catalogo():
-    return render_template('catalogo.html')
+    usuario = session.get('usuario')
+    conn = get_db_connection()
+    servicios = conn.execute('SELECT * FROM servicios').fetchall()
+    conn.close()
+    return render_template('catalogo.html', servicios=servicios, usuario = usuario)
+
+@app.route("/cargaServicio.html", methods=["GET", "POST"])
+def cargaServicio():
+    usuario = session.get('usuario')
+    if request.method == "POST":
+        titulo = request.form['service-title']
+        descripcion = request.form['service-description']
+        precio = request.form['service-price']
+        duracion = request.form['service-duration']
+        a_domicilio = request.form.get('service-delivery')
+
+        if a_domicilio == 'on':
+            a_domicilio = 'Si'
+        else:
+            a_domicilio = 'No'
+
+        conn = get_db_connection()
+        try:
+            conn.execute(
+                'INSERT INTO servicios (titulo, descripcion, autor, precio, duracion, a_domicilio) VALUES (?, ?, ?, ?, ?, ?)',
+                (titulo, descripcion, usuario, float(precio), duracion, a_domicilio)
+            )
+            conn.commit()
+            flash("Registro exitoso.")
+        except sqlite3.IntegrityError as e:
+            print("Error de integridad:", e)
+            print(titulo, descripcion, usuario, precio, duracion, a_domicilio)
+            flash("Error desconocido.")
+        finally:
+            conn.close()
+    conn = get_db_connection()
+    servicios = conn.execute('SELECT * FROM servicios WHERE autor = ?',
+        (usuario,)
+        ).fetchall()
+    conn.close()
+    return render_template('cargaServicio.html', servicios=servicios, usuario=usuario)
 
 if __name__ == '__main__':  
    app.run(host="0.0.0.0", port=80, debug=True)

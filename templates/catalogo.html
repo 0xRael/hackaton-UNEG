@@ -7,26 +7,26 @@
         <div class="container">
             <h1>SERVICIOS</h1>
             <div class="lista-servicios">
-                <div class="servicio">
-                    <div class="servicio-titulo">
-                        <div>
-                            <h2>Servicio</h2>
-                            <p>Descripción del servicio.</p>
-                            <a>...Mas informacion</a>
+                {% for servicio in servicios %}
+                    <div class="servicio">
+                        <div class="servicio-titulo">
+                            <div>
+                                <h2>{{ servicio['titulo'] }}</h2>
+                                <p>{{ servicio['descripcion'] }}</p>
+                                <p><b>Autor:</b> {{ servicio['autor'] }}</p>
+                                <p><b>Precio:</b> {{ servicio['precio'] }} Bs</p>
+                                <p><b>Duración:</b> {{ servicio['duracion'] }}</p>
+                                <p><b>A domicilio:</b> {{ servicio['a_domicilio'] }}</p>
+                            </div>
+                            <img src="https://i.pinimg.com/originals/a2/3c/3f/a23c3f5c2a7539635248d5c68411ff02.jpg" alt="Servicio 1">
                         </div>
-                        <img src="https://i.pinimg.com/originals/a2/3c/3f/a23c3f5c2a7539635248d5c68411ff02.jpg" alt="Servicio 1">
                     </div>
-                </div>
-                <div class="servicio">
-                    <div class="servicio-titulo">
-                        <div>
-                            <h2>Servicio</h2>
-                            <p>Descripción del servicio.</p>
-                            <a>...Mas informacion</a>
-                        </div>
-                        <img src="https://external-preview.redd.it/YD79bWh1dUCj2O2oRZJzrN86orOaSiUSSNgZAI2cqDI.png?width=640&crop=smart&auto=webp&s=ba2ed49a690c7179b80b078bb5d9c165b1f214ed" alt="Servicio 1">
-                    </div>
-                </div>
+                {% endfor %}
+                {% if usuario %}
+                    <a href="cargaServicio.html">Agregar un servicio...</a>
+                {% else %}
+                    <a href="login.html">Inicia sesión para agregar un servicio: Iniciar sesion.</a>
+                {% endif %}
             </div>
         </div>
     </body>

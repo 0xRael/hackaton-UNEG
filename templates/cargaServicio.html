@@ -12,14 +12,14 @@
 
   <section id="add-service">
   <h2>Agregar nuevo servicio</h2>
-  <form id="service-form">
-    <input type="text" id="service-title" placeholder="Título del servicio" required>
-    <textarea id="service-description" placeholder="Descripción detallada" required></textarea>
+  <form id="service-form" action="/cargaServicio.html" method="post">
+    <input type="text" id="service-title" name="service-title" placeholder="Título del servicio" required>
+    <textarea id="service-description" name="service-description" placeholder="Descripción detallada" required></textarea>
     
 
     <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-  <input type="number" id="service-price" placeholder="Precio (Bs)" required>
-  <select id="service-duration" required>
+  <input type="number" id="service-price" name="service-price" placeholder="Precio (Bs)" required>
+  <select id="service-duration" name="service-duration" required>
     <option value="" disabled selected>Duración</option>
     <option value="30min">30 minutos</option>
     <option value="1h">1 hora</option>
@@ -30,7 +30,7 @@
 
 <div class="switch-container">
   <label class="switch-label">
-    <input type="checkbox" id="service-delivery">
+    <input type="checkbox" id="service-delivery" name="service-delivery">
     <span class="switch-slider"></span>
     <span class="switch-text">Servicio a domicilio</span>
   </label>
@@ -42,7 +42,16 @@
 
 <section id="service-list">
   <h2>Servicios disponibles</h2>
-  <ul id="services"></ul>
+  <ul id="services">
+    {% for nuevoServicio in servicios %}
+      <li>
+        <strong>{{nuevoServicio.titulo}}</strong><br>
+        {{nuevoServicio.descripcion}}<br>
+        <em>Precio:</em> Bs {{nuevoServicio.precio}} —
+        <em>Duración:</em> {{nuevoServicio.duracion}}
+      </li>
+    {% endfor %}
+  </ul>
 </section>
 
 
