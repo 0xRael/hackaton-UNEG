@@ -21,5 +21,6 @@ document.getElementById('service-form').addEventListener('submit', function (e) 
   `;
   document.getElementById('services').appendChild(item);
 
+  document.getElementById('service-form').submit();
   document.getElementById('service-form').reset();
 });
