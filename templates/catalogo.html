@@ -26,14 +26,15 @@
                         <div class="servicio-titulo">
                             <div>
                                 <h2>{{ servicio['titulo'] }}</h2>
-                                <p>{{ servicio['descripcion'] }}</p>
                                 <p><b>Autor:</b> {{ servicio['autor'] }}</p>
-                                <p><b>Precio:</b> {{ servicio['precio'] }} Bs</p>
-                                <p><b>Duración:</b> {{ servicio['duracion'] }}</p>
-                                <p><b>A domicilio:</b> {{ servicio['a_domicilio'] }}</p>
                             </div>
                             <img src="https://i.pinimg.com/originals/a2/3c/3f/a23c3f5c2a7539635248d5c68411ff02.jpg" alt="Servicio 1">
                         </div>
+                        <p>{{ servicio['descripcion'] }}</p>
+                        <p><b>Precio:</b> {{ servicio['precio'] }} Bs | 
+                            <b>Duración:</b> {{ servicio['duracion'] }} | 
+                            <b>A domicilio:</b> {{ servicio['a_domicilio'] }}
+                        </p>
                     </div>
                 {% endfor %}
                 {% if usuario %}
