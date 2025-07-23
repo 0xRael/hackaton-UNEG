@@ -55,7 +55,7 @@ function renderizarServicios() {
         <div class="service-info">
           <h2>${serv.titulo}</h2>
           <p>${serv.descripcion}</p>
-          <p><strong>Precio:</strong> Bs ${serv.precio.toFixed(2)}</p>
+          <p><strong>Precio:</strong> $ ${serv.precio.toFixed(2)}</p>
           <p><strong>Categoría:</strong> ${serv.category}</p>
           <p><strong>A domicilio:</strong> ${serv.domicilio ? "Disponible" : "No disponible"}</p>
           <div class="service-actions">
