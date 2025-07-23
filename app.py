@@ -38,6 +38,7 @@ def init_db():
 init_db()
 
 @app.route("/")
+@app.route("/index.html")
 def index():
 	usuario = session.get('usuario')
 	return render_template('index.html', usuario=usuario)
