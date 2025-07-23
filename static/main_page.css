@@ -1,0 +1,37 @@
+* {
+    font-family: Bahnschrift;
+    color: #EBEBEB;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #2c2628;
+}
+body {
+    justify-content: center;
+    height: 100vh;
+    
+    background-color: #161314;
+    color: #EBEBEB;
+}
+
+a:hover{
+    color: blue;
+}
+
+nav ul li {
+    list-style-type: none;
+    display: inline;
+    justify-content: flex-end;
+    margin-right: 20px;
+    font-size: 16px;
+}
+nav li:hover {
+    transform: scale(1.2);
+}
+
+nav a {
+    text-decoration: none;
+    color: #EBEBEB;
+}
