@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Servicios de la Tienda</title>
+  <link rel="stylesheet" href="../static/cargServ.css">
+</head>
+<body>
+  <header>
+    <h1>SERVICIOS</h1>
+  </header>
+
+  <section id="add-service">
+  <h2>Agregar nuevo servicio</h2>
+  <form id="service-form" action="/cargaServicio.html" method="post">
+    <input type="text" id="service-title" name="service-title" placeholder="Título del servicio" required>
+    <textarea id="service-description" name="service-description" placeholder="Descripción detallada" required></textarea>
+    
+
+    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+  <input type="number" id="service-price" name="service-price" placeholder="Precio (Bs)" required>
+  <select id="service-duration" name="service-duration" required>
+    <option value="" disabled selected>Duración</option>
+    <option value="30min">30 minutos</option>
+    <option value="1h">1 hora</option>
+    <option value="1h30">1 hora 30 minutos</option>
+    <option value="2h">2 horas</option>
+  </select>
+</div>
+
+<div class="switch-container">
+  <label class="switch-label">
+    <input type="checkbox" id="service-delivery" name="service-delivery">
+    <span class="switch-slider"></span>
+    <span class="switch-text">¿Es a domicilio?</span>
+  </label>
+</div>
+
+    <button type="submit">Agregar</button>
+  </form>
+</section>
+
+<section id="service-list">
+  <h2>Servicios disponibles</h2>
+  <ul id="services">
+    {% for nuevoServicio in servicios %}
+      <li>
+        <strong>{{nuevoServicio.titulo}}</strong><br>
+        {{nuevoServicio.descripcion}}<br>
+        <em>Precio:</em> Bs {{nuevoServicio.precio}} —
+        <em>Duración:</em> {{nuevoServicio.duracion}}
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+
+  <script src="../static/cargaServicio.js"></script>
+</body>
+</html>

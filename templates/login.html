@@ -9,13 +9,13 @@
 <body>
     <div class="registro">
         <h1>INICIAR SESION</h1>
-    <div class="formulario">
+    <form class="formulario" action="/login.html" id="formulario" method="post">
         
-        <input type="email" id="correo" placeholder="correo electronico" required> <br>
-        <input type="password" id="contraseña" placeholder="contraseña" required> <br>
+        <input type="email" name="correo" id="correo" placeholder="correo electronico" required> <br>
+        <input type="password" name="contraseña" id="contraseña" placeholder="contraseña" required> <br>
 
-        <button class="login" id="login">Iniciar sesion</button>
-    </div>
+        <button class="login" type="submit" id="login">Iniciar sesion</button>
+    </form>
     <br>
     <a href="registro.html">No tienes una cuenta?</a>
     </div>

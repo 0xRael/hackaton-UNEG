@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
     <link rel= "stylesheet" href="../static/registro-login.css">
+    
 </head>
 <body>
     <div class="registro">
         <h1>REGISTRO</h1>
-    <div class="formulario">
-        
-        <input type="text" id="nombreusuario" placeholder="Nombre y Apellido" required> <br>
-        <input type="email" id="correo" placeholder="correo electronico" required> <br>
-        <input type="password" id="contraseña" placeholder="contraseña" required> <br>
+    <div >
+
+        <form class="formulario" action="/registro.html" id="formulario" method="post">
+
+        <input type="text" name="nombreusuario" id="nombreusuario" placeholder="Nombre y Apellido" required> <br>
+        <input type="email" name="correo" id="correo" placeholder="correo electronico" required> <br>
+        <input type="password" name="contraseña" id="contraseña" placeholder="contraseña" required> <br>
 
 
         <select class="genero" id="genero" name ="genero" required>
@@ -23,10 +26,13 @@
             <option value="mujer">Mujer</option>
         </select> <br>
 
-        <button class="register" id="registro">Registro</button>
+        <button class="register" type="submit" id="registro">Registro</button>
+        <script src="../static/registro.js" defer></script>
+        </form>
     </div>
     <br>
     <a href="login.html">Ya tienes una cuenta?</a>
     </div>
+    
 </body>
 </html>
