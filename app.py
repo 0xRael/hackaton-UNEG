@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, flash
 import sqlite3
+from flask import jsonify
 
 app = Flask(__name__)
 app.secret_key = '123123123'
@@ -27,9 +28,10 @@ def init_db():
             descripcion TEXT NOT NULL,
             autor TEXT NOT NULL,
             precio REAL NOT NULL,
-            duracion TEXT NOT NULL,
+            duracion TEXT,
             a_domicilio TEXT NOT NULL,
-            imagen TEXT
+            imagen TEXT,
+            categoria TEXT
         )
     ''')
     conn.commit()
@@ -95,41 +97,81 @@ def catalogo():
     conn.close()
     return render_template('catalogo.html', servicios=servicios, usuario = usuario)
 
-@app.route("/cargaServicio.html", methods=["GET", "POST"])
+@app.route("/cargaServicio.html")
 def cargaServicio():
     usuario = session.get('usuario')
-    if request.method == "POST":
-        titulo = request.form['service-title']
-        descripcion = request.form['service-description']
-        precio = request.form['service-price']
-        duracion = request.form['service-duration']
-        a_domicilio = request.form.get('service-delivery')
+    return render_template('cargaServicio.html', usuario=usuario)
 
-        if a_domicilio == 'on':
-            a_domicilio = 'Si'
-        else:
-            a_domicilio = 'No'
 
-        conn = get_db_connection()
-        try:
-            conn.execute(
-                'INSERT INTO servicios (titulo, descripcion, autor, precio, duracion, a_domicilio) VALUES (?, ?, ?, ?, ?, ?)',
-                (titulo, descripcion, usuario, float(precio), duracion, a_domicilio)
-            )
-            conn.commit()
-            flash("Registro exitoso.")
-        except sqlite3.IntegrityError as e:
-            print("Error de integridad:", e)
-            print(titulo, descripcion, usuario, precio, duracion, a_domicilio)
-            flash("Error desconocido.")
-        finally:
-            conn.close()
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/api/servicios", methods=["GET"])
+def api_listar_servicios():
+    usuario = session.get('usuario')
     conn = get_db_connection()
-    servicios = conn.execute('SELECT * FROM servicios WHERE autor = ?',
-        (usuario,)
-        ).fetchall()
+    servicios = conn.execute('SELECT * FROM servicios WHERE autor = ?', (usuario,)).fetchall()
     conn.close()
-    return render_template('cargaServicio.html', servicios=servicios, usuario=usuario)
+    return jsonify([dict(s) for s in servicios])
+
+@app.route("/api/servicios", methods=["POST"])
+def api_agregar_servicio():
+    usuario = session.get('usuario')
+    data = request.json
+    conn = get_db_connection()
+    conn.execute(
+        'INSERT INTO servicios (titulo, descripcion, autor, precio, duracion, a_domicilio, imagen, categoria) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        (
+            data['titulo'],
+            data['descripcion'],
+            usuario,
+            float(data['precio']),
+            data.get('duracion'),
+            data['a_domicilio'],
+            data.get('imagen', ''),
+            data['categoria']
+        )
+    )
+    conn.commit()
+    conn.close()
+    return jsonify({"success": True})
+
+@app.route("/api/servicios/<int:id>", methods=["PUT"])
+def api_editar_servicio(id):
+    data = request.json
+    conn = get_db_connection()
+    conn.execute(
+        'UPDATE servicios SET titulo=?, descripcion=?, precio=?, duracion=?, a_domicilio=?, imagen=?, categoria=? WHERE id=?',
+        (
+            data['titulo'],
+            data['descripcion'],
+            float(data['precio']),
+            data.get('duracion'),
+            data['a_domicilio'],
+            data.get('imagen', ''),
+            data['categoria'],
+            id
+        )
+    )
+    conn.commit()
+    conn.close()
+    return jsonify({"success": True})
+
+@app.route("/api/servicios/<int:id>", methods=["DELETE"])
+def api_eliminar_servicio(id):
+    conn = get_db_connection()
+    conn.execute('DELETE FROM servicios WHERE id=?', (id,))
+    conn.commit()
+    conn.close()
+    return jsonify({"success": True})
 
 if __name__ == '__main__':  
    app.run(host="0.0.0.0", port=80, debug=True)

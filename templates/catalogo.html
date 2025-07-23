@@ -26,13 +26,18 @@
                         <div class="servicio-titulo">
                             <div>
                                 <h2>{{ servicio['titulo'] }}</h2>
-                                <p><b>Autor:</b> {{ servicio['autor'] }}</p>
+                                <p><b>Autor:</b> {{ servicio['autor'] }}
+                                {% if servicio['categoria'] %}<br><b>Categoria:</b> {{ servicio['categoria'] }}{% endif %}</p>
                             </div>
-                            <img src="https://i.pinimg.com/originals/a2/3c/3f/a23c3f5c2a7539635248d5c68411ff02.jpg" alt="Servicio 1">
+                            {% if servicio['imagen'] %}
+                            <img src="{{ servicio['imagen'] }}" alt="Imagen del servicio">
+                            {% else %}
+                            <img src="https://t3.ftcdn.net/jpg/15/97/33/72/360_F_1597337267_YnjNgC3DRENuEQ0TbRdmeyIR38C8wcxx.jpg" alt="Imagen del servicio">
+                            {% endif %}
                         </div>
                         <p>{{ servicio['descripcion'] }}</p>
-                        <p><b>Precio:</b> {{ servicio['precio'] }} Bs | 
-                            <b>Duración:</b> {{ servicio['duracion'] }} | 
+                        <p><b>Precio:</b> {{ servicio['precio'] }} $ | 
+                            {% if servicio['duracion'] %}<b>Duración:</b> {{ servicio['duracion'] }} | {% endif %}
                             <b>A domicilio:</b> {{ servicio['a_domicilio'] }}
                         </p>
                     </div>
