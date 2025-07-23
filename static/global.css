@@ -1,0 +1,47 @@
+* {
+    font-family: Bahnschrift;
+    color: #EBEBEB;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #2c2628;
+}
+
+body {
+    height: 100vh;
+    background-color: #161314;
+    color: #EBEBEB;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* barra de navegacion*/
+.navbar > ul > li {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    margin-right: 60px;
+    font-size: 16px;
+    background-color: #2c2628;
+    border: 0;
+}
+
+.navbar > ul > li:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.navbar > ul > li > a {
+    text-decoration: none;
+    color: #EBEBEB;
+    margin: 0;
+}
+
+.navbar > ul > li > a:hover{
+    color: blue;
+}
+
