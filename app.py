@@ -221,6 +221,15 @@ def api_listar_reservas():
     conn.close()
     return jsonify([dict(r) for r in reservas])
 
+@app.route("/api/reservas/<int:id>", methods=["GET"])
+def api_listar_reservas_servicio(id):
+    conn = get_db_connection()
+    reservas = conn.execute(
+        'SELECT * FROM reservas WHERE servicio_id = ?', (id,)
+    ).fetchall()
+    conn.close()
+    return jsonify([dict(r) for r in reservas])
+
 @app.route("/api/reservas/<int:id>", methods=["DELETE"])
 def api_eliminar_reserva(id):
     usuario = session.get('usuario')
