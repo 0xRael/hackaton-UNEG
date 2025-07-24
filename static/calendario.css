@@ -10,8 +10,6 @@ body {
   font-family: Bahnschrift, sans-serif;
   background: var(--night);
   color: var(--antiflash-white);
-  margin: 20px;
-  padding: 100px;
 }
 
 h2 {
