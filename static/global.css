@@ -30,6 +30,12 @@ body {
     border: 0;
 }
 
+@media only screen and (max-width: 768px){
+    .navbar > ul > li {
+        display: block;
+    }
+}
+
 .navbar > ul > li:hover {
     transform: scale(1.1);
     cursor: pointer;
