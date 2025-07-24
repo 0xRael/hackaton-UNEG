@@ -45,8 +45,14 @@
 
 .boton-principal {
     cursor: pointer;
-    width: 100%;
+    width: 70%;
     background-color: #69B5B0 ;
+    color: black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 input{
@@ -56,7 +62,7 @@ input{
     width: 250px;
 }
 
-a{
+.enlace{
     display:block;
     cursor: pointer;
     text-align: right;

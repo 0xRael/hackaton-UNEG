@@ -40,12 +40,13 @@
                             {% if servicio['duracion'] %}<b>Duración:</b> {{ servicio['duracion'] }} | {% endif %}
                             <b>A domicilio:</b> {{ servicio['a_domicilio'] }}
                         </p>
+                        <a class="boton-principal" href="/servicio/{{ servicio['id'] }}">Entrar</a>
                     </div>
                 {% endfor %}
                 {% if usuario %}
-                    <a href="cargaServicio.html">Agregar un servicio...</a>
+                    <a class="enlace" href="cargaServicio.html">Agregar un servicio...</a>
                 {% else %}
-                    <a href="login.html">Inicia sesión para agregar un servicio: Iniciar sesion.</a>
+                    <a class="enlace" href="login.html">Inicia sesión para agregar un servicio: Iniciar sesion.</a>
                 {% endif %}
             </div>
         </div>
