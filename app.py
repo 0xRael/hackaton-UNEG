@@ -102,6 +102,18 @@ def cargaServicio():
     usuario = session.get('usuario')
     return render_template('cargaServicio.html', usuario=usuario)
 
+@app.route("/servicio/<int:id>")
+def servicio(id):
+    usuario = session.get('usuario')
+    conn = get_db_connection()
+    servicio = conn.execute('SELECT * FROM servicios WHERE id = ?', (id,)).fetchone()
+    conn.close()
+    if servicio:
+        return render_template('servicio.html', servicio=servicio, usuario=usuario)
+    else:
+        flash("Servicio no encontrado.")
+        return redirect('/catalogo.html')
+
 
 
 
