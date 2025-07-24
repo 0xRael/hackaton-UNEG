@@ -7,7 +7,7 @@ body {
       font-family: Bahnschrift, sans-serif;
       background-color: #161314;
       color: #EBEBEB;
-    }
+}
 
 .registro{
     display:block;
@@ -24,7 +24,7 @@ body {
     padding-top: 50px;
     padding-bottom: 50px;
     background-color: #2C2628 ;
-    color: #EBEBEB;
+    color: #2c2628;
     box-shadow: 0 0 10px #17599f;
 }
 
@@ -70,6 +70,7 @@ option{
     padding: 10px;
     margin: 0 auto; 
 }
+
 .login:hover{
     background-color: #579591 ;
     transform: translateY(-3px);
@@ -80,6 +81,10 @@ input{
     border-radius: 5px;
     padding: 10px;
     width: 250px;
+}
+
+#genero,input,button{
+    color: #2c2628;
 }
 
 a{
