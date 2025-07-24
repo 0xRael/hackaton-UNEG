@@ -34,6 +34,16 @@ def init_db():
             categoria TEXT
         )
     ''')
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS reservas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            usuario TEXT NOT NULL,
+            servicio_id INTEGER NOT NULL,
+            fecha TEXT NOT NULL,
+            hora TEXT NOT NULL,
+            FOREIGN KEY(servicio_id) REFERENCES servicios(id)
+        )
+    ''')
     conn.commit()
     conn.close()
 
@@ -181,6 +191,41 @@ def api_editar_servicio(id):
 def api_eliminar_servicio(id):
     conn = get_db_connection()
     conn.execute('DELETE FROM servicios WHERE id=?', (id,))
+    conn.commit()
+    conn.close()
+    return jsonify({"success": True})
+
+@app.route("/api/reservas", methods=["POST"])
+def api_crear_reserva():
+    usuario = session.get('usuario')
+    data = request.json
+    servicio_id = data['servicio_id']
+    fecha = data['fecha']
+    hora = data['hora']
+    conn = get_db_connection()
+    conn.execute(
+        'INSERT INTO reservas (usuario, servicio_id, fecha, hora) VALUES (?, ?, ?, ?)',
+        (usuario, servicio_id, fecha, hora)
+    )
+    conn.commit()
+    conn.close()
+    return jsonify({"success": True})
+
+@app.route("/api/reservas", methods=["GET"])
+def api_listar_reservas():
+    usuario = session.get('usuario')
+    conn = get_db_connection()
+    reservas = conn.execute(
+        'SELECT * FROM reservas WHERE usuario = ?', (usuario,)
+    ).fetchall()
+    conn.close()
+    return jsonify([dict(r) for r in reservas])
+
+@app.route("/api/reservas/<int:id>", methods=["DELETE"])
+def api_eliminar_reserva(id):
+    usuario = session.get('usuario')
+    conn = get_db_connection()
+    conn.execute('DELETE FROM reservas WHERE id=? AND usuario=?', (id, usuario))
     conn.commit()
     conn.close()
     return jsonify({"success": True})
