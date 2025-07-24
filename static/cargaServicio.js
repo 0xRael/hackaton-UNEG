@@ -78,7 +78,7 @@ window.editarServicio = function(id) {
   document.getElementById('service-title').value = serv.titulo;
   document.getElementById('service-description').value = serv.descripcion;
   document.getElementById('service-price').value = serv.precio;
-  document.getElementById('service-category').value = serv.duracion;
+  document.getElementById('service-category').value = serv.categoria;
   document.getElementById('service-delivery').checked = serv.a_domicilio === "Si";
   document.getElementById('img-preview').src = serv.imagen || "#";
   document.getElementById('img-preview').style.display = serv.imagen ? "block" : "none";

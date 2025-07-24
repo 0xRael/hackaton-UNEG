@@ -16,7 +16,11 @@
                 <li><a style = "color: #69B5B0;"  href="index.html">Inicio</a></li>
                 <li><a href="catalogo.html">Servicios</a></li>
                 <li><a href="ruta de tiendas">Tiendas</a></li>
-                <li><a href="login.html">Iniciar sesion</a></li>
+                {% if usuario %}
+                <li><a href="#">{{ usuario }}</a></li>
+            {% else %}
+                <li><a href="login.html">Iniciar sesión</a></li>
+            {% endif %}
             </ul>
         </nav>
     </header>
