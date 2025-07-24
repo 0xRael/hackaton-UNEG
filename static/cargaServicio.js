@@ -23,38 +23,27 @@ document.getElementById('imagen').addEventListener('change', function () {
 document.getElementById('service-form').addEventListener('submit', async function (e) {
   e.preventDefault();
 
-  const titulo = document.getElementById('service-title').value;
-  const descripcion = document.getElementById('service-description').value;
-  const precio = parseFloat(document.getElementById('service-price').value);
-  const categoria = document.getElementById('service-category').value;
-  const aDomicilio = document.getElementById('service-delivery').checked ? "Si" : "No";
-  const imagenInput = document.getElementById('img-preview');
-  const imagen = imagenInput.src && imagenInput.style.display !== 'none' ? imagenInput.src : "";
+  const form = document.getElementById('service-form');
+  const formData = new FormData(form);
+  formData.append('a_domicilio', document.getElementById('service-delivery').checked ? "Si" : "No");
 
-  const servicio = { titulo, descripcion, precio, categoria, a_domicilio: aDomicilio, imagen };
-
+  let url = '/api/servicios';
+  let method = 'POST';
   if (editandoId !== null) {
-    // lo envia al servidor para ser editado
-    // metodo PUT = editar
-    await fetch(`/api/servicios/${editandoId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(servicio)
-    });
-    editandoId = null;
-  } else {
-    // lo agrega al servidor
-    await fetch('/api/servicios', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(servicio)
-    });
+    url = `/api/servicios/${editandoId}`;
+    method = 'PUT';
   }
 
+  await fetch(url, {
+    method: method,
+    body: formData
+  });
+
+  editandoId = null;
   await cargarServicios();
-  document.getElementById('service-form').reset();
-  imagenInput.src = "#";
-  imagenInput.style.display = 'none';
+  form.reset();
+  document.getElementById('img-preview').src = "#";
+  document.getElementById('img-preview').style.display = 'none';
 });
 
 function renderizarServicios() {
