@@ -26,13 +26,13 @@
     
 
     <div class="container">
-        <h1>{{servicio['titulo']}}</h1>
-        <div class="descripcion-servicio"> 
+        <h1 class = "FadeDown">{{servicio['titulo']}}</h1>
+        <div class="FadeDown descripcion-servicio"> 
             <img class="imagen" src="{{ servicio['imagen'] }}" alt="Imagen del servicio">
             <p>{{ servicio['descripcion'] }}</p>
         </div>  
        
-        <div class="reserva">
+        <div class="FadeDown reserva">
             <form action="#" id="reserva">
             <label for="fecha">Reserva un Día</label> <br> <br>
             <label for="hora">Hora</label> <br>
@@ -45,8 +45,8 @@
         
     </div>
     <div>
-<h2>Calendario Semanal -- Bloques por Hora</h2>
-    <div class="calendar" id="calendar">
+<h2 class=" FadeIn">Calendario Semanal -- Bloques por Hora</h2>
+    <div class="calendar FadeUp" id="calendar">
         <!-- Contenido generado por JS -->
     </div>
     </div>
