@@ -1,8 +1,7 @@
 .container {
     border:1px solid white;
     padding: 10px;
-    margin: 20vh;
-  
+    margin: 50px 20vh;
     text-align: center;
     
 
@@ -13,11 +12,16 @@
 
 .descripcion-servicio p{
     justify-content: flex-end;
+    width: 600px;;
 }
 
 .reserva{
-    display: block;
+    display: inline-block;
     text-align:center;
+    background-color: #2c2628;
+    padding: 30px;
+    border-radius: 10px;
+    margin:30px;
 }
 .imagen{
     width: 600px;;
@@ -28,5 +32,28 @@ img {
     border-radius: 20px;
     object-fit: cover;
     box-shadow: 0 0 10px #161314;
+}
+
+.tiempo{
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #2c2628;
+    color: #EBEBEB;
+    font-size: 16px;
+    cursor:pointer;
+    margin: 5px;
+}
+
+button {
+    background-color: #161314;
+    color: #EBEBEB;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 20px 0;
 }
 
