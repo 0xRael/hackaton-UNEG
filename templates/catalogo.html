@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
     <head>
         <title>Catalogo</title>
         <link rel="stylesheet" type="text/css" href="../static/catalogo.css">
@@ -13,7 +13,7 @@
                 <li><a style = "color: #69B5B0;" href="catalogo.html">Servicios</a></li>
                 <li><a href="ruta de tiendas">Tiendas</a></li>
                 {% if usuario %}
-                <li><a href="#">{{ usuario }}</a></li>
+                <li><a href="user_page.html">{{ usuario }}</a></li>
             {% else %}
                 <li><a href="login.html">Iniciar sesión</a></li>
             {% endif %}
