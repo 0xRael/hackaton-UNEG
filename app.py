@@ -1,16 +1,9 @@
 from flask import Flask, render_template, request, redirect, session, flash
 import sqlite3
 from flask import jsonify
-import os
-from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = '123123123'
-
-UPLOAD_FOLDER = 'static/files'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def get_db_connection():
     conn = sqlite3.connect('usuarios.db')
@@ -130,8 +123,8 @@ def servicio(id):
 
 
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 
 @app.route("/api/servicios", methods=["GET"])
 def api_listar_servicios():
@@ -144,33 +137,19 @@ def api_listar_servicios():
 @app.route("/api/servicios", methods=["POST"])
 def api_agregar_servicio():
     usuario = session.get('usuario')
-    titulo = request.form['service-title']
-    descripcion = request.form['service-description']
-    precio = float(request.form['service-price'])
-    duracion = request.form['service-category']
-    a_domicilio = request.form['a_domicilio']
-    categoria = duracion
-    imagen = request.files.get('imagen')
-    imagen_url = ''
-
-    if imagen and allowed_file(imagen.filename):
-        filename = secure_filename(imagen.filename)
-        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-        imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        imagen_url = f'/static/files/{filename}'
-
+    data = request.json
     conn = get_db_connection()
     conn.execute(
         'INSERT INTO servicios (titulo, descripcion, autor, precio, duracion, a_domicilio, imagen, categoria) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         (
-            titulo,
-            descripcion,
+            data['titulo'],
+            data['descripcion'],
             usuario,
-            precio,
-            duracion,
-            a_domicilio,
-            imagen_url,
-            categoria
+            float(data['precio']),
+            data.get('duracion'),
+            data['a_domicilio'],
+            data.get('imagen', ''),
+            data['categoria']
         )
     )
     conn.commit()
@@ -179,32 +158,18 @@ def api_agregar_servicio():
 
 @app.route("/api/servicios/<int:id>", methods=["PUT"])
 def api_editar_servicio(id):
-    titulo = request.form['service-title']
-    descripcion = request.form['service-description']
-    precio = float(request.form['service-price'])
-    duracion = request.form['service-category']
-    a_domicilio = request.form['a_domicilio']
-    categoria = duracion
-    imagen = request.files.get('imagen')
-    imagen_url = request.form.get('imagen_url', '')
-
-    if imagen and allowed_file(imagen.filename):
-        filename = secure_filename(imagen.filename)
-        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-        imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        imagen_url = f'/static/files/{filename}'
-
+    data = request.json
     conn = get_db_connection()
     conn.execute(
         'UPDATE servicios SET titulo=?, descripcion=?, precio=?, duracion=?, a_domicilio=?, imagen=?, categoria=? WHERE id=?',
         (
-            titulo,
-            descripcion,
-            precio,
-            duracion,
-            a_domicilio,
-            imagen_url,
-            categoria,
+            data['titulo'],
+            data['descripcion'],
+            float(data['precio']),
+            data.get('duracion'),
+            data['a_domicilio'],
+            data.get('imagen', ''),
+            data['categoria'],
             id
         )
     )
