@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="servicios.css">
+    <link rel="stylesheet" href="global.css">
+    <title>Servicio</title>
+</head>
+<header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a style = "color: #69B5B0;" href="catalogo.html">Servicios</a></li>
+                <li><a href="ruta de tiendas">Tiendas</a></li>
+                <li><a href="login.html">Iniciar sesion</a></li>
+            </ul>
+        </nav>
+    </header>
+<body>
+    
+    <div class="container">
+        <h1>{{servicio['titulo']}}</h1>
+        <div class="descripcion-servicio"> 
+            <img class="servicio-imagen" src="{{ servicio['imagen'] }}" alt="Imagen del servicio">
+            <p>{{ servicio['descripcion'] }}</p>
+        </div>  
+       
+        <div class="reserva">
+            <label for="fecha">Reserva un Día</label> <br>
+            <input style="color: black;" type="date" id="fecha" name="fecha">
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>

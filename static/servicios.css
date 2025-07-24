@@ -1,0 +1,22 @@
+.container {
+    border:1px solid white;
+    padding: 10px;
+    margin: 20vh;
+  
+    text-align: center;
+    
+
+}
+.descripcion-servicio{
+    display: inline-block;
+}
+
+.descripcion-servicio p{
+    justify-content: flex-end;
+}
+
+.reserva{
+    display: block;
+    text-align:center;
+}
+
