@@ -116,7 +116,7 @@ def servicio(id):
     servicio = conn.execute('SELECT * FROM servicios WHERE id = ?', (id,)).fetchone()
     conn.close()
     if servicio:
-        return render_template('servicio.html', servicio=servicio, usuario=usuario)
+        return render_template('servicios.html', servicio=servicio, usuario=usuario)
     else:
         flash("Servicio no encontrado.")
         return redirect('/catalogo.html')
