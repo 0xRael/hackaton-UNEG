@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NAME_HERE</title>
+        <link rel ="icon" href = "../static/images/Page_icon.ico" type = "image/x-icon">
+
+        <link rel="stylesheet" type="text/css" href="../static/main_page.css">
+        <link rel="stylesheet" type="text/css" href="../static/global.css">
+    </head>
+
+    <!--Barra de navegacion--> 
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Servicios</a></li>
+                <li><a href="ruta de tiendas">Tiendas</a></li>
+                {% if usuario %}
+                <li><a style = "color: #69B5B0;" href="#">{{ usuario }}</a></li>
+            {% else %}
+                <li><a href="login.html">Iniciar sesión</a></li>
+            {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+</html>
