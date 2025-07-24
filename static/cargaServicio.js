@@ -8,6 +8,18 @@ async function cargarServicios() {
   renderizarServicios();
 }
 
+document.getElementById('imagen').addEventListener('change', function () {
+  const archivo = this.files[0];
+  const maxSize = 500 * 1024; // 500 MB
+
+  if (archivo && archivo.size > maxSize) {
+    alert("La imagen es demasiado grande. El tamaño máximo es 500 MB.");
+    this.value = "";
+    document.getElementById('img-preview').style.display = 'none';
+    return;
+  }
+});
+
 document.getElementById('service-form').addEventListener('submit', async function (e) {
   e.preventDefault();
 
