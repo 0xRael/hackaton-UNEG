@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.secret_key = '123123123'
 
+DATABASE = 'usuarios.db'
 UPLOAD_FOLDER = 'static/images/files'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
