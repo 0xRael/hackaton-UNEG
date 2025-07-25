@@ -31,8 +31,9 @@ def close_db(exc):
         db.close()
 
 def init_db():
-    conn = get_db_connection()
-    conn.execute('''
+    with app.app_context():
+        conn = get_db_connection()
+        conn.execute('''
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre TEXT NOT NULL,
@@ -40,8 +41,8 @@ def init_db():
             contraseña TEXT NOT NULL,
             genero TEXT NOT NULL
         )
-    ''')
-    conn.execute('''
+        ''')
+        conn.execute('''
         CREATE TABLE IF NOT EXISTS servicios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             titulo TEXT NOT NULL,
@@ -52,8 +53,8 @@ def init_db():
             imagen TEXT,
             categoria TEXT
         )
-    ''')
-    conn.execute('''
+        ''')
+        conn.execute('''
         CREATE TABLE IF NOT EXISTS reservas (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             usuario TEXT NOT NULL,
@@ -62,9 +63,9 @@ def init_db():
             hora TEXT NOT NULL,
             FOREIGN KEY(servicio_id) REFERENCES servicios(id)
         )
-    ''')
-    conn.commit()
-    conn.close()
+        ''')
+        conn.commit()
+        conn.close()
 
 init_db()
 
