@@ -211,19 +211,33 @@ def api_editar_servicio(id):
         imagen_url = f'/static/images/files/{filename}'
 
     conn = get_db_connection()
-    conn.execute(
-        'UPDATE servicios SET titulo=?, descripcion=?, precio=?, duracion=?, a_domicilio=?, imagen=?, categoria=? WHERE id=?',
-        (
-            titulo,
-            descripcion,
-            precio,
-            duracion,
-            a_domicilio,
-            imagen_url,
-            categoria,
-            id
+    if imagen_url != '':
+        conn.execute(
+            'UPDATE servicios SET titulo=?, descripcion=?, precio=?, duracion=?, a_domicilio=?, imagen=?, categoria=? WHERE id=?',
+            (
+                titulo,
+                descripcion,
+                precio,
+                duracion,
+                a_domicilio,
+                imagen_url,
+                categoria,
+                id
+            )
         )
-    )
+    else:
+        conn.execute(
+            'UPDATE servicios SET titulo=?, descripcion=?, precio=?, duracion=?, a_domicilio=?, categoria=? WHERE id=?',
+            (
+                titulo,
+                descripcion,
+                precio,
+                duracion,
+                a_domicilio,
+                categoria,
+                id
+            )
+        )
     conn.commit()
     conn.close()
     return jsonify({"success": True})
