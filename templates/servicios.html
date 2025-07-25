@@ -11,39 +11,25 @@
 <header>
         <nav class="navbar">
             <ul>
-                <li><a href="/index.html">Inicio</a></li>
-                <li><a href="/catalogo.html">Servicios</a></li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Servicios</a></li>
                 <li><a href="ruta de tiendas">Tiendas</a></li>
                 {% if usuario %}
-                <li><a href="/user_page.html">{{ usuario }}</a></li>
+                <li><a href="#">{{ usuario }}</a></li>
             {% else %}
-                <li><a href="/login.html">Iniciar sesión</a></li>
+                <li><a href="login.html">Iniciar sesión</a></li>
             {% endif %}
             </ul>
         </nav>
     </header>
 <body>
-    
 
     <div class="container">
         <h1 class = "FadeDown">{{servicio['titulo']}}</h1>
         <div class="FadeDown descripcion-servicio"> 
             <img class="imagen" src="{{ servicio['imagen'] }}" alt="Imagen del servicio">
             <p>{{ servicio['descripcion'] }}</p>
-        </div>  
-       
-        <div class="FadeDown reserva">
-            <form action="#" id="reserva">
-            <label for="fecha">Reserva un Día</label> <br> <br>
-            <label for="hora">Hora</label> <br>
-            <input class="tiempo" type="time" id="hora" name="hora"> <br>
-            <label for="fecha">Fecha</label> <br>
-            <input class="tiempo" type="date" id="fecha" name="fecha"> <br>
-            <button>Reservar</button>
-            </form>
-        </div>
-        
-    </div>
+
     <div>
 <h2 class=" FadeIn">Calendario Semanal -- Bloques por Hora</h2>
     <div class="calendar FadeUp" id="calendar">
@@ -51,6 +37,8 @@
     </div>
     </div>
     <script src="../static/calendary.js"></script>
+    <button id="submit-button" class="enviar">Enviar horarios</button>
+
     <script src="../static/servicios.js"></script>
 </body>
 </html>
