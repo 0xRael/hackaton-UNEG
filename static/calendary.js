@@ -1,9 +1,9 @@
-// Script mejorado
 const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 const startHour = 8;
 const endHour = 18;
 const calendar = document.getElementById("calendar");
 
+// Crear columnas por día
 days.forEach(day => {
     const column = document.createElement("div");
     column.className = "day-column";
@@ -17,12 +17,12 @@ days.forEach(day => {
         const block = document.createElement("div");
         block.className = "hour-block";
         block.dataset.day = day;
-        block.dataset.hour = hour;
+        block.dataset.hour = hour.toString().padStart(2, '0');
         block.textContent = `${hour.toString().padStart(2, '0')}:00`;
 
-        block.onclick = () => {
+        block.addEventListener("click", () => {
             block.classList.toggle("selected");
-        };
+        });
 
         column.appendChild(block);
     }
@@ -30,27 +30,43 @@ days.forEach(day => {
     calendar.appendChild(column);
 });
 
-document.getElementById("submit-button").onclick = () => {
-    const selectedBlocks = Array.from(document.querySelectorAll(".hour-block.selected"));
-    const selectedData = selectedBlocks.map(block => ({
-        day: block.dataset.day,
-        hour: block.dataset.hour
-    }));
+// Botón para enviar datos
+const submitButton = document.getElementById("submit-button");
+submitButton.addEventListener("click", () => {
+    const selectedBlocks = document.querySelectorAll(".hour-block.selected");
+    const horarios = [];
 
+    selectedBlocks.forEach(block => {
+        horarios.push({
+            dia: block.dataset.day,
+            hora: block.dataset.hour
+        });
+    });
+
+    // Verificar si hay selección
+    if (horarios.length === 0) {
+        alert("Selecciona al menos un horario antes de enviar.");
+        return;
+    }
+
+    // Enviar al servidor
     fetch("/api/horarios", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ horarios: selectedData })
+        body: JSON.stringify({ horarios: horarios })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) throw new Error("Error en el servidor");
+        return response.json();
+    })
     .then(data => {
-        alert("¡Horario enviado correctamente!");
-        console.log(data);
+        console.log("Respuesta del servidor:", data);
+        alert("¡Horarios guardados correctamente!");
     })
     .catch(error => {
-        alert("Error al enviar horarios");
-        console.error(error);
+        console.error("Error:", error);
+        alert("Hubo un problema al enviar los horarios.");
     });
-};
+});
