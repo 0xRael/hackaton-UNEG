@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import Flask, g, render_template, request, redirect, session, flash
 import sqlite3
 from flask import jsonify
 import os
@@ -12,9 +12,23 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def get_db_connection():
-    conn = sqlite3.connect('usuarios.db')
-    conn.row_factory = sqlite3.Row
-    return conn
+    if 'db' not in g:
+        conn = sqlite3.connect(
+            DATABASE,
+            timeout=30,
+            check_same_thread=False
+        )
+        conn.row_factory = sqlite3.Row
+        conn.execute('PRAGMA journal_mode=WAL;')
+        conn.execute('PRAGMA busy_timeout = 30000;')
+        g.db = conn
+    return g.db
+
+@app.teardown_appcontext
+def close_db(exc):
+    db = g.pop('db', None)
+    if db is not None:
+        db.close()
 
 def init_db():
     conn = get_db_connection()
