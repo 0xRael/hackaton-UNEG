@@ -2,6 +2,7 @@ const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 const startHour = 8;
 const endHour = 18;
 const calendar = document.getElementById("calendar");
+const match = window.location.pathname.match(/\/servicio\/(\d+)/);
 const servicio_id = match ? parseInt(match[1]) : null;
 
 async function obtenerReservas() {
