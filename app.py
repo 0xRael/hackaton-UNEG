@@ -194,18 +194,33 @@ def api_agregar_servicio():
 
 @app.route("/api/servicios/<int:id>", methods=["PUT"])
 def api_editar_servicio(id):
-    data = request.json
+    usuario = session.get('usuario')
+    titulo = request.form['service-title']
+    descripcion = request.form['service-description']
+    precio = float(request.form['service-price'])
+    duracion = request.form['service-category']
+    a_domicilio = request.form['a_domicilio']
+    categoria = duracion
+    imagen = request.files.get('imagen')
+    imagen_url = ''
+
+    if imagen and allowed_file(imagen.filename):
+        filename = secure_filename(imagen.filename)
+        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+        imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        imagen_url = f'/static/images/files/{filename}'
+
     conn = get_db_connection()
     conn.execute(
         'UPDATE servicios SET titulo=?, descripcion=?, precio=?, duracion=?, a_domicilio=?, imagen=?, categoria=? WHERE id=?',
         (
-            data['titulo'],
-            data['descripcion'],
-            float(data['precio']),
-            data.get('duracion'),
-            data['a_domicilio'],
-            data.get('imagen', ''),
-            data['categoria'],
+            titulo,
+            descripcion,
+            precio,
+            duracion,
+            a_domicilio,
+            imagen_url,
+            categoria,
             id
         )
     )
