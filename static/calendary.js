@@ -1,4 +1,19 @@
-const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+function getNextDays(numDays) {
+    const days = [];
+    const today = new Date();
+    for (let i = 0; i < numDays; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() + i);
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        days.push(`${yyyy}-${mm}-${dd}`);
+    }
+    return days;
+}
+
+const days = getNextDays(5); // 5 días desde hoy
+
 const startHour = 8;
 const endHour = 18;
 const calendar = document.getElementById("calendar");
@@ -15,7 +30,7 @@ async function obtenerReservas() {
   }
 }
 
-// Crear columnas por día
+// Crear columnas por fecha
 days.forEach(day => {
     const column = document.createElement("div");
     column.className = "day-column";
@@ -48,7 +63,6 @@ days.forEach(day => {
 async function marcarReservasEnCalendario() {
     const reservas = await obtenerReservas();
     reservas.forEach(reserva => {
-        // Asume que reserva.dia y reserva.hora existen
         const block = Array.from(document.querySelectorAll('.hour-block')).find(b =>
             b.dataset.day === reserva.fecha && b.dataset.hour === reserva.hora
         );
