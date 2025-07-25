@@ -10,6 +10,16 @@
 <body>
     <div class="registro">
         <h1 class = "FadeDown">INICIAR SESION</h1>
+        {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="mensaje-error">
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
     <form class="FadeIn" action="/login.html" id="formulario" method="post">
         
         <input type="email" name="correo" id="correo" placeholder="correo electronico" required> <br>
