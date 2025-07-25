@@ -49,7 +49,7 @@ async function marcarReservasEnCalendario() {
     reservas.forEach(reserva => {
         // Asume que reserva.dia y reserva.hora existen
         const block = Array.from(document.querySelectorAll('.hour-block')).find(b =>
-            b.dataset.day === reserva.dia && b.dataset.hour === reserva.hora
+            b.dataset.day === reserva.fecha && b.dataset.hour === reserva.hora
         );
         if (block) {
             block.classList.add("reserved");
@@ -70,7 +70,7 @@ submitButton.addEventListener("click", () => {
 
     selectedBlocks.forEach(block => {
         horarios.push({
-            dia: block.dataset.day,
+            fecha: block.dataset.day,
             hora: block.dataset.hour
         });
     });
