@@ -113,10 +113,14 @@ def login():
 @app.route("/catalogo.html")
 def catalogo():
     usuario = session.get('usuario')
+    categoria = request.args.get('categoria', '')
     conn = get_db_connection()
-    servicios = conn.execute('SELECT * FROM servicios').fetchall()
+    if categoria:
+        servicios = conn.execute('SELECT * FROM servicios WHERE categoria = ?', (categoria,)).fetchall()
+    else:
+        servicios = conn.execute('SELECT * FROM servicios').fetchall()
     conn.close()
-    return render_template('catalogo.html', servicios=servicios, usuario = usuario)
+    return render_template('catalogo.html', servicios=servicios, usuario=usuario)
 
 @app.route("/cargaServicio.html")
 def cargaServicio():
