@@ -270,6 +270,24 @@ def api_crear_reserva():
     conn.close()
     return jsonify({"success": True})
 
+@app.route("/api/horarios", methods=["POST"])
+def api_crear_reserva():
+    usuario = session.get('usuario')
+    data = request.json
+    servicio_id = data['servicio_id']
+    
+    conn = get_db_connection()
+    for reserva in data['horarios']:
+        fecha = reserva['fecha']
+        hora = reserva['hora']
+        conn.execute(
+            'INSERT INTO reservas (usuario, servicio_id, fecha, hora) VALUES (?, ?, ?, ?)',
+            (usuario, servicio_id, fecha, hora)
+        )
+    conn.commit()
+    conn.close()
+    return jsonify({"success": True})
+
 @app.route("/api/reservas", methods=["GET"])
 def api_listar_reservas():
     usuario = session.get('usuario')

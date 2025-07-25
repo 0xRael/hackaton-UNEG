@@ -2,6 +2,17 @@ const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 const startHour = 8;
 const endHour = 18;
 const calendar = document.getElementById("calendar");
+const servicio_id = match ? parseInt(match[1]) : null;
+
+async function obtenerReservas() {
+  const res = await fetch(`/api/reservas/${servicio_id}`);
+  if (res.ok) {
+    const reservas = await res.json();
+    return reservas;
+  } else {
+    return [];
+  }
+}
 
 // Crear columnas por día
 days.forEach(day => {
@@ -21,7 +32,9 @@ days.forEach(day => {
         block.textContent = `${hour.toString().padStart(2, '0')}:00`;
 
         block.addEventListener("click", () => {
-            block.classList.toggle("selected");
+            if (!block.classList.contains("reserved")) {
+                block.classList.toggle("selected");
+            }
         });
 
         column.appendChild(block);
@@ -29,6 +42,25 @@ days.forEach(day => {
 
     calendar.appendChild(column);
 });
+
+// Marcar bloques reservados usando obtenerReservas
+async function marcarReservasEnCalendario() {
+    const reservas = await obtenerReservas();
+    reservas.forEach(reserva => {
+        // Asume que reserva.dia y reserva.hora existen
+        const block = Array.from(document.querySelectorAll('.hour-block')).find(b =>
+            b.dataset.day === reserva.dia && b.dataset.hour === reserva.hora
+        );
+        if (block) {
+            block.classList.add("reserved");
+            block.style.background = "#d63f3f";
+            block.style.color = "#fff";
+            block.title = "Reservado";
+        }
+    });
+}
+
+window.addEventListener("DOMContentLoaded", marcarReservasEnCalendario);
 
 // Botón para enviar datos
 const submitButton = document.getElementById("submit-button");
@@ -55,7 +87,7 @@ submitButton.addEventListener("click", () => {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ horarios: horarios })
+        body: JSON.stringify({ horarios: horarios, servicio_id: servicio_id })
     })
     .then(response => {
         if (!response.ok) throw new Error("Error en el servidor");
