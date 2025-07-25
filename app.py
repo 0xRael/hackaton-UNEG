@@ -271,7 +271,7 @@ def api_crear_reserva():
     return jsonify({"success": True})
 
 @app.route("/api/horarios", methods=["POST"])
-def api_crear_reserva():
+def api_crear_horario():
     usuario = session.get('usuario')
     data = request.json
     servicio_id = data['servicio_id']
