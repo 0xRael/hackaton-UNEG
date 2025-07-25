@@ -34,7 +34,6 @@ def init_db():
             descripcion TEXT NOT NULL,
             autor TEXT NOT NULL,
             precio REAL NOT NULL,
-            duracion TEXT,
             a_domicilio TEXT NOT NULL,
             imagen TEXT,
             categoria TEXT
@@ -166,9 +165,8 @@ def api_agregar_servicio():
     titulo = request.form['service-title']
     descripcion = request.form['service-description']
     precio = float(request.form['service-price'])
-    duracion = request.form['service-category']
     a_domicilio = request.form['a_domicilio']
-    categoria = duracion
+    categoria = request.form['service-category']
     imagen = request.files.get('imagen')
     imagen_url = ''
 
@@ -180,13 +178,12 @@ def api_agregar_servicio():
 
     conn = get_db_connection()
     conn.execute(
-        'INSERT INTO servicios (titulo, descripcion, autor, precio, duracion, a_domicilio, imagen, categoria) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO servicios (titulo, descripcion, autor, precio, a_domicilio, imagen, categoria) VALUES (?, ?, ?, ?, ?, ?, ?)',
         (
             titulo,
             descripcion,
             usuario,
             precio,
-            duracion,
             a_domicilio,
             imagen_url,
             categoria
@@ -202,9 +199,8 @@ def api_editar_servicio(id):
     titulo = request.form['service-title']
     descripcion = request.form['service-description']
     precio = float(request.form['service-price'])
-    duracion = request.form['service-category']
     a_domicilio = request.form['a_domicilio']
-    categoria = duracion
+    categoria = request.form['service-category']
     imagen = request.files.get('imagen')
     imagen_url = ''
 
@@ -217,12 +213,11 @@ def api_editar_servicio(id):
     conn = get_db_connection()
     if imagen_url != '':
         conn.execute(
-            'UPDATE servicios SET titulo=?, descripcion=?, precio=?, duracion=?, a_domicilio=?, imagen=?, categoria=? WHERE id=?',
+            'UPDATE servicios SET titulo=?, descripcion=?, precio=?, a_domicilio=?, imagen=?, categoria=? WHERE id=?',
             (
                 titulo,
                 descripcion,
                 precio,
-                duracion,
                 a_domicilio,
                 imagen_url,
                 categoria,
@@ -231,12 +226,11 @@ def api_editar_servicio(id):
         )
     else:
         conn.execute(
-            'UPDATE servicios SET titulo=?, descripcion=?, precio=?, duracion=?, a_domicilio=?, categoria=? WHERE id=?',
+            'UPDATE servicios SET titulo=?, descripcion=?, precio=?, a_domicilio=?, categoria=? WHERE id=?',
             (
                 titulo,
                 descripcion,
                 precio,
-                duracion,
                 a_domicilio,
                 categoria,
                 id
