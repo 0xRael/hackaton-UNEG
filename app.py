@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import Flask, g, render_template, request, redirect, session, flash
 import sqlite3
 from flask import jsonify
 import os
@@ -7,18 +7,34 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.secret_key = '123123123'
 
+DATABASE = 'usuarios.db'
 UPLOAD_FOLDER = 'static/images/files'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def get_db_connection():
-    conn = sqlite3.connect('usuarios.db')
-    conn.row_factory = sqlite3.Row
-    return conn
+    if 'db' not in g:
+        conn = sqlite3.connect(
+            DATABASE,
+            timeout=30,
+            check_same_thread=False
+        )
+        conn.row_factory = sqlite3.Row
+        conn.execute('PRAGMA journal_mode=WAL;')
+        conn.execute('PRAGMA busy_timeout = 30000;')
+        g.db = conn
+    return g.db
+
+@app.teardown_appcontext
+def close_db(exc):
+    db = g.pop('db', None)
+    if db is not None:
+        db.close()
 
 def init_db():
-    conn = get_db_connection()
-    conn.execute('''
+    with app.app_context():
+        conn = get_db_connection()
+        conn.execute('''
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre TEXT NOT NULL,
@@ -27,8 +43,8 @@ def init_db():
             genero TEXT NOT NULL
             foto TEXT
         )
-    ''')
-    conn.execute('''
+        ''')
+        conn.execute('''
         CREATE TABLE IF NOT EXISTS servicios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             titulo TEXT NOT NULL,
@@ -39,8 +55,8 @@ def init_db():
             imagen TEXT,
             categoria TEXT
         )
-    ''')
-    conn.execute('''
+        ''')
+        conn.execute('''
         CREATE TABLE IF NOT EXISTS reservas (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             usuario TEXT NOT NULL,
@@ -49,9 +65,9 @@ def init_db():
             hora TEXT NOT NULL,
             FOREIGN KEY(servicio_id) REFERENCES servicios(id)
         )
-    ''')
-    conn.commit()
-    conn.close()
+        ''')
+        conn.commit()
+        conn.close()
 
 init_db()
 
@@ -130,9 +146,9 @@ def catalogo():
     categoria = request.args.get('categoria', '')
     conn = get_db_connection()
     if categoria:
-        servicios = conn.execute('SELECT * FROM servicios WHERE categoria = ?', (categoria,)).fetchall()
+        servicios = conn.execute('SELECT * FROM servicios WHERE categoria = ? ORDER BY id DESC', (categoria,)).fetchall()
     else:
-        servicios = conn.execute('SELECT * FROM servicios').fetchall()
+        servicios = conn.execute('SELECT * FROM servicios ORDER BY id DESC').fetchall()
     conn.close()
     return render_template('catalogo.html', servicios=servicios, usuario=usuario)
 

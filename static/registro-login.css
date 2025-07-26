@@ -83,7 +83,7 @@ input{
     width: 250px;
 }
 
-#genero,input,button{
+#genero,option,input,button{
     color: #2c2628;
 }
 

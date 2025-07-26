@@ -7,10 +7,13 @@
         
     </head>
 
-    <!--Barra de navegacion-->
+     <!--Barra de navegacion--> 
     <header>
         <nav class="navbar">
             <ul>
+                <li style="align-items: flex-end;"><input id="hide_sidebar" type="image" src="../static/images/X_icon.png"
+                     onclick="document.querySelector('.navbar').classList.remove('show')"></li>
+                    
                 <li><a href="index.html">Inicio</a></li>
                 <li><a style = "color: #69B5B0;" href="catalogo.html">Servicios</a></li>
                 <li><a href="ruta de tiendas">Tiendas</a></li>
@@ -21,6 +24,8 @@
             {% endif %}
             </ul>
         </nav>
+        <input id="show_sidebar" type="image" src="../static/images/Hamburger_icon.svg.png"
+                     onclick="document.querySelector('.navbar').classList.add('show')">
     </header>
 
     <body>

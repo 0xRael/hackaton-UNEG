@@ -8,19 +8,25 @@
     <link rel="stylesheet" href="../static/global.css">
     <title>Servicio</title>
 </head>
-<header>
+ <!--Barra de navegacion--> 
+    <header>
         <nav class="navbar">
             <ul>
-                <li><a href="/index.html">Inicio</a></li>
-                <li><a href="/catalogo.html">Servicios</a></li>
+                <li style="align-items: flex-end;"><input id="hide_sidebar" type="image" src="../static/images/X_icon.png"
+                     onclick="document.querySelector('.navbar').classList.remove('show')"></li>
+                    
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Servicios</a></li>
                 <li><a href="ruta de tiendas">Tiendas</a></li>
                 {% if usuario %}
-                <li><a href="/user_page.html">{{ usuario }}</a></li>
+                <li><a href="user_page.html">{{ usuario }}</a></li>
             {% else %}
-                <li><a href="/login.html">Iniciar sesión</a></li>
+                <li><a href="login.html">Iniciar sesión</a></li>
             {% endif %}
             </ul>
         </nav>
+        <input id="show_sidebar" type="image" src="../static/images/Hamburger_icon.svg.png"
+                     onclick="document.querySelector('.navbar').classList.add('show')">
     </header>
 <body>
 
@@ -38,6 +44,7 @@
     </div>
     <button id="submit-button" class="enviar">Enviar horarios</button>
 
+    <script>window.usuarioActual = "{{ usuario }}";</script>
     <script src="../static/calendary.js"></script>
 </body>
 </html>

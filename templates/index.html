@@ -4,7 +4,7 @@
     <head>
         <title>NAME_HERE</title>
         <link rel ="icon" href = "../static/images/Page_icon.ico" type = "image/x-icon">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../static/main_page.css">
         <link rel="stylesheet" type="text/css" href="../static/global.css">
     </head>
@@ -13,6 +13,9 @@
     <header>
         <nav class="navbar">
             <ul>
+                <li style="align-items: flex-end;"><input id="hide_sidebar" type="image" src="../static/images/X_icon.png"
+                     onclick="document.querySelector('.navbar').classList.remove('show')"></li>
+                    
                 <li><a style = "color: #69B5B0;"  href="index.html">Inicio</a></li>
                 <li><a href="catalogo.html">Servicios</a></li>
                 <li><a href="ruta de tiendas">Tiendas</a></li>
@@ -23,6 +26,8 @@
             {% endif %}
             </ul>
         </nav>
+        <input id="show_sidebar" type="image" src="../static/images/Hamburger_icon.svg.png"
+                     onclick="document.querySelector('.navbar').classList.add('show')">
     </header>
     
     <body>

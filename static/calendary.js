@@ -62,18 +62,42 @@ days.forEach(day => {
 // Marcar bloques reservados usando obtenerReservas
 async function marcarReservasEnCalendario() {
     const reservas = await obtenerReservas();
+    // Obtén tu usuario actual desde el backend (puedes pasar como variable global en el template)
+    const usuarioActual = window.usuarioActual || null;
+
     reservas.forEach(reserva => {
         const block = Array.from(document.querySelectorAll('.hour-block')).find(b =>
             b.dataset.day === reserva.fecha && b.dataset.hour === reserva.hora
         );
         if (block) {
             block.classList.add("reserved");
-            block.style.background = "#d63f3f";
-            block.style.color = "#fff";
-            block.title = "Reservado";
+            if (usuarioActual && reserva.usuario === usuarioActual) {
+                block.classList.add("mine");
+                block.style.background = "#3fd66b";
+                block.style.color = "#161314";
+                block.title = "Tu reserva (haz clic para eliminar)";
+                block.addEventListener("click", async function () {
+                    if (block.classList.contains("mine")) {
+                        if (confirm("¿Eliminar esta reserva?")) {
+                            await fetch(`/api/reservas/${reserva.id}`, { method: "DELETE" });
+                            block.classList.remove("reserved", "mine");
+                            block.style.background = "";
+                            block.style.color = "";
+                            block.title = "";
+                        }
+                    }
+                });
+            } else {
+                block.style.background = "#d63f3f";
+                block.style.color = "#fff";
+                block.title = "Reservado";
+            }
         }
     });
 }
+
+// Antes de llamar a marcarReservasEnCalendario, define window.usuarioActual en el template HTML:
+// <script>window.usuarioActual = "{{ usuario }}";</script>
 
 window.addEventListener("DOMContentLoaded", marcarReservasEnCalendario);
 
