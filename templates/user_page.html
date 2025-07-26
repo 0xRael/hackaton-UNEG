@@ -29,20 +29,7 @@
         <input id="show_sidebar" type="image" src="../static/images/Hamburger_icon.svg.png"
                      onclick="document.querySelector('.navbar').classList.add('show')">
     </header>
-<header>
-  <nav class="navbar">
-    <ul>
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="catalogo.html">Servicios</a></li>
-      <li><a href="ruta de tiendas">Tiendas</a></li>
-      {% if usuario %}
-        <li><a style="color: #69B5B0;" href="#">{{ usuario }}</a></li>
-      {% else %}
-        <li><a href="login.html">Iniciar sesión</a></li>
-      {% endif %}
-    </ul>
-  </nav>
-</header>
+
 
 <body>
   <h1>Mi Perfil</h1>
