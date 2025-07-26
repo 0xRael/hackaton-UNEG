@@ -9,7 +9,7 @@ app.secret_key = '123123123'
 
 DATABASE = 'usuarios.db'
 UPLOAD_FOLDER = 'static/images/files'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def get_db_connection():
