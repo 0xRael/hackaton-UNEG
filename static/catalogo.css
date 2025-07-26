@@ -43,6 +43,10 @@
     margin-top: 0px;
 }
 
+button {
+  color: black;
+}
+
 .boton-principal {
     cursor: pointer;
     width: 70%;
@@ -60,6 +64,7 @@ input{
     border-radius: 5px;
     padding: 10px;
     width: 250px;
+    color: black;
 }
 
 .enlace{
