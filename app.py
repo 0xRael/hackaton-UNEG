@@ -131,9 +131,9 @@ def catalogo():
     categoria = request.args.get('categoria', '')
     conn = get_db_connection()
     if categoria:
-        servicios = conn.execute('SELECT * FROM servicios WHERE categoria = ?', (categoria,)).fetchall()
+        servicios = conn.execute('SELECT * FROM servicios WHERE categoria = ? ORDER BY id DESC', (categoria,)).fetchall()
     else:
-        servicios = conn.execute('SELECT * FROM servicios').fetchall()
+        servicios = conn.execute('SELECT * FROM servicios ORDER BY id DESC').fetchall()
     conn.close()
     return render_template('catalogo.html', servicios=servicios, usuario=usuario)
 
