@@ -20,7 +20,7 @@
                 <li><a href="catalogo.html">Servicios</a></li>
                 <li><a href="ruta de tiendas">Tiendas</a></li>
                 {% if usuario %}
-                <li><a style = "color: #69B5B0;" href="user_page.html">{{ usuario }}</a></li>
+                <li><a style = "color: #69B5B0;" href="user_page.html">{{ usuario['nombre'] }}</a></li>
             {% else %}
                 <li><a href="login.html">Iniciar sesión</a></li>
             {% endif %}
