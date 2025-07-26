@@ -40,7 +40,7 @@ def init_db():
             nombre TEXT NOT NULL,
             correo TEXT NOT NULL UNIQUE,
             contraseña TEXT NOT NULL,
-            genero TEXT NOT NULL
+            genero TEXT NOT NULL,
             foto TEXT
         )
         ''')
