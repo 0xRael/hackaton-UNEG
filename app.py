@@ -25,6 +25,7 @@ def init_db():
             correo TEXT NOT NULL UNIQUE,
             contraseña TEXT NOT NULL,
             genero TEXT NOT NULL
+            foto TEXT
         )
     ''')
     conn.execute('''
@@ -62,8 +63,22 @@ def index():
 
 @app.route("/user_page.html")
 def user_page():
-	usuario = session.get('usuario')
-	return render_template('user_page.html', usuario=usuario)
+    nombre_usuario = session.get('usuario')
+    if not nombre_usuario:
+        return render_template('user_page.html', usuario=None)
+
+    conn = get_db_connection()
+    usuario = conn.execute('SELECT * FROM usuarios WHERE nombre = ?', (nombre_usuario,)).fetchone()
+    conn.close()
+
+    if usuario:
+        foto = usuario['foto'] if usuario['foto'] else '/static/images/default.jpg'
+        usuario_dict = dict(usuario)
+        usuario_dict['foto'] = foto
+        return render_template('user_page.html', usuario=usuario_dict)
+    else:
+        return render_template('user_page.html', usuario=None)
+
 
 @app.route("/registro.html", methods=["GET", "POST"])
 def registro():

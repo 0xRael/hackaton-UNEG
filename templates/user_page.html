@@ -1,30 +1,58 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>NAME_HERE</title>
-        <link rel ="icon" href = "../static/images/Page_icon.ico" type = "image/x-icon">
-        <link rel="stylesheet" type="text/css" href="../static/global.css">
-    </head>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil de Usuario</title>
+  <link rel="icon" href="../static/images/Page_icon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/global.css">
+  <link rel="stylesheet" href="../static/user_page.css">
+</head>
 
-    <!--Barra de navegacion--> 
-    <header>
-        <nav class="navbar">
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Servicios</a></li>
-                <li><a href="ruta de tiendas">Tiendas</a></li>
-                {% if usuario %}
-                <li><a style = "color: #69B5B0;" href="#">{{ usuario }}</a></li>
-            {% else %}
-                <li><a href="login.html">Iniciar sesión</a></li>
-            {% endif %}
-            </ul>
-        </nav>
-    </header>
+<header>
+  <nav class="navbar">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="catalogo.html">Servicios</a></li>
+      <li><a href="ruta de tiendas">Tiendas</a></li>
+      {% if usuario %}
+        <li><a style="color: #69B5B0;" href="#">{{ usuario }}</a></li>
+      {% else %}
+        <li><a href="login.html">Iniciar sesión</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+</header>
 
-    <body>
-        <h1> Usuario</h1>
+<body>
+  <h1>Mi Perfil</h1>
+  <div class="perfil-container">
+    {% if usuario %}
+      <form id="formulario-perfil" enctype="multipart/form-data">
+        <div class="perfil-layout">
+          <div class="foto-seccion">
+            <img class="foto-usuario" src="{{ usuario.foto or '/static/images/default.jpg' }}" alt="Foto de perfil">
+            <input type="file" id="subir-foto" class="subir-foto" name="foto" accept="image/*">
+            <label for="subir-foto" class="boton-subir-foto" style="display:none">📷</label>
+          </div>
+
+          <div class="datos-usuario">
+            <input type="text" id="nombre" name="nombre" value="{{ usuario.nombre }}" disabled>
+            <input type="email" id="correo" name="correo" value="{{ usuario.correo }}" disabled>
+            <textarea id="user-description" name="user-description" placeholder="Añade una descripción personal" disabled></textarea>
+            <div class="botones">
+            <button type="button" id="boton-editar">Editar</button>
+            <button type="submit" id="guardar" style="display:none">Guardar</button>
+        </div>
+        </div>
+        </div>
+
         
-    </body>
-
+      </form>
+    {% else %}
+      <p><strong>No hay una sesión abierta</strong></p>
+      <a href="login.html">Iniciar sesión</a>
+    {% endif %}
+  </div>
+</body>
+<script src="../static/user_page.js"></script>
 </html>

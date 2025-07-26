@@ -1,0 +1,124 @@
+:root {
+  --night: #161314;
+  --raisin-black: #2c2628;
+  --lapis-lazuli: #17599f;
+  --verdigris: #69b5b0;
+  --antiflash-white: #ebebeb;
+}
+
+.perfil-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: var(--raisin-black);
+  border-radius: 12px;
+  box-shadow: 0 0 20px var(--lapis-lazuli);
+  font-family: Bahnschrift, sans-serif;
+  color: var(--antiflash-white);
+}
+
+.perfil-layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.foto-seccion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+}
+
+.foto-usuario {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px var(--lapis-lazuli);
+}
+
+.subir-foto {
+  display: none;
+}
+
+.boton-subir-foto {
+  background-color: var(--verdigris);
+  color: white;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 1.2em;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 8px var(--lapis-lazuli);
+  transition: background-color 0.3s;
+}
+
+.boton-subir-foto:hover {
+  background-color: #57a3a0;
+}
+
+.datos-usuario {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid var(--verdigris);
+  border-radius: 5px;
+  background-color: var(--night);
+  color: var(--antiflash-white);
+}
+
+input:disabled,
+textarea:disabled {
+  background-color: var(--night);
+  color: #777;
+}
+
+textarea {
+  height: 80px;
+  resize: none;
+}
+
+.botones {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.botones button {
+  margin: 10px 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #0077cc;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95em;
+  transition: background-color 0.3s;
+}
+
+.botones button:hover {
+  background-color: #005fa3;
+}
+h1 {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: bold;
+  background: linear-gradient(to right, var(--lapis-lazuli), var(--verdigris), var(--antiflash-white));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
