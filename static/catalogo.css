@@ -71,6 +71,20 @@ input{
     text-decoration: none;
 }
 
+select{
+    border: 2px solid #161314;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+option{
+    border: 2px solid #161314;
+    border-radius: 20px;
+    padding: 10px;
+}
+
 @media only screen and (max-width: 768px){
   .lista-servicios {
     width: 95vw;
