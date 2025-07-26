@@ -35,7 +35,7 @@
   <h1>Mi Perfil</h1>
   <div class="perfil-container">
     {% if usuario %}
-      <form id="formulario-perfil" enctype="multipart/form-data">
+      <form id="formulario-perfil" enctype="multipart/form-data" method="post" action="/user_page.html">
         <div class="perfil-layout">
           <div class="foto-seccion">
             <img class="foto-usuario" src="{{ usuario.foto or '/static/images/default.jpg' }}" alt="Foto de perfil">
@@ -46,7 +46,7 @@
           <div class="datos-usuario">
             <input type="text" id="nombre" name="nombre" value="{{ usuario.nombre }}" disabled>
             <input type="email" id="correo" name="correo" value="{{ usuario.correo }}" disabled>
-            <textarea id="user-description" name="user-description" placeholder="Añade una descripción personal" disabled></textarea>
+            <textarea id="user-description" name="user-description" value="{{ usuario.descripcion }}" disabled></textarea>
             <div class="botones">
             <button type="button" id="boton-editar">Editar</button>
             <button type="submit" id="guardar" style="display:none">Guardar</button>

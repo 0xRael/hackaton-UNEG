@@ -41,7 +41,8 @@ def init_db():
             correo TEXT NOT NULL UNIQUE,
             contraseña TEXT NOT NULL,
             genero TEXT NOT NULL,
-            foto TEXT
+            foto TEXT,
+            descripcion TEXT
         )
         ''')
         conn.execute('''
@@ -77,7 +78,7 @@ def index():
 	usuario = session.get('usuario')
 	return render_template('index.html', usuario=usuario)
 
-@app.route("/user_page.html")
+@app.route("/user_page.html", methods=["GET", "POST"])
 def user_page():
     nombre_usuario = session.get('usuario')
     if not nombre_usuario:
@@ -85,12 +86,31 @@ def user_page():
 
     conn = get_db_connection()
     usuario = conn.execute('SELECT * FROM usuarios WHERE nombre = ?', (nombre_usuario,)).fetchone()
+
+    if request.method == "POST":
+        descripcion = request.form.get('user-description', '')
+        correo = request.form.get('correo')
+        foto = request.files.get('foto')
+        foto_url = usuario['foto'] if usuario and usuario['foto'] else '/static/images/default.jpg'
+
+        if foto and foto.filename:
+            filename = secure_filename(foto.filename)
+            os.makedirs('static/images/files', exist_ok=True)
+            foto.save(os.path.join('static/images/files', filename))
+            foto_url = f'/static/images/files/{filename}'
+
+        conn.execute(
+            'UPDATE usuarios SET foto=?, descripcion=?, correo=? WHERE nombre=?',
+            (foto_url, descripcion, correo, nombre_usuario)
+        )
+        conn.commit()
+        usuario = conn.execute('SELECT * FROM usuarios WHERE nombre = ?', (nombre_usuario,)).fetchone()
+
     conn.close()
 
     if usuario:
-        foto = usuario['foto'] if usuario['foto'] else '/static/images/default.jpg'
         usuario_dict = dict(usuario)
-        usuario_dict['foto'] = foto
+        usuario_dict['foto'] = usuario_dict.get('foto', '/static/images/default.jpg')
         return render_template('user_page.html', usuario=usuario_dict)
     else:
         return render_template('user_page.html', usuario=None)
