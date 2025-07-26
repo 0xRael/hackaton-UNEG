@@ -164,11 +164,21 @@ def login():
 def catalogo():
     usuario = session.get('usuario')
     categoria = request.args.get('categoria', '')
+    busqueda = request.args.get('busqueda', '').strip()
     conn = get_db_connection()
+    query = 'SELECT * FROM servicios WHERE 1=1'
+    params = []
+
     if categoria:
-        servicios = conn.execute('SELECT * FROM servicios WHERE categoria = ? ORDER BY id DESC', (categoria,)).fetchall()
-    else:
-        servicios = conn.execute('SELECT * FROM servicios ORDER BY id DESC').fetchall()
+        query += ' AND categoria = ?'
+        params.append(categoria)
+    if busqueda:
+        query += ' AND (titulo LIKE ? OR descripcion LIKE ?)'
+
+        params.extend([f'%{busqueda}%', f'%{busqueda}%'])
+
+    query += ' ORDER BY id DESC'
+    servicios = conn.execute(query, params).fetchall()
     conn.close()
     return render_template('catalogo.html', servicios=servicios, usuario=usuario)
 

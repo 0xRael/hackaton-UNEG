@@ -42,6 +42,8 @@
                     <option value="Marketing" {% if request.args.get('categoria') == 'Marketing' %}selected{% endif %}>Marketing</option>
                     <option value="Recreación" {% if request.args.get('categoria') == 'Recreación' %}selected{% endif %}>Recreación</option>
                 </select>
+                <input type="text" name="busqueda" id="busqueda" placeholder="Buscar servicios..." value="{{ request.args.get('busqueda', '') }}">
+                <button type="submit">Buscar</button>
             </form>
             <div class="lista-servicios">
                 {% for servicio in servicios %}
