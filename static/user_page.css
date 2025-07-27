@@ -127,6 +127,10 @@ textarea {
   transition: background-color 0.3s;
 }
 
+#cerrar-sesion {
+  background-color: #980a0a;
+}
+
 h1 {
   text-align: center;
   font-size: 4rem;
