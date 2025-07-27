@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Servicios de la Tienda</title>
+  <link rel="stylesheet" href="../static/cargServ.css">
+  <link rel="stylesheet" type="text/css" href="../static/global.css">
+</head>
+
+<!-- Barra de navegación -->
+<header>
+  <nav class="navbar">
+    <ul>
+      <li style="align-items: flex-end;">
+        <input id="hide_sidebar" type="image" src="../static/images/X_icon.png"
+               onclick="document.querySelector('.navbar').classList.remove('show')">
+      </li>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="catalogo.html">Servicios</a></li>
+      <li><a href="ruta de tiendas">Tiendas</a></li>
+      {% if usuario %}
+        <li><a href="user_page.html">{{ usuario }}</a></li>
+      {% else %}
+        <li><a href="login.html">Iniciar sesión</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  <input id="show_sidebar" type="image" src="../static/images/Hamburger_icon.svg.png"
+         onclick="document.querySelector('.navbar').classList.add('show')">
+</header>
+
+<body>
+  <h1 class="FadeDown">SERVICIOS</h1>
+
+  <!-- Sección: Agregar nuevo servicio -->
+  <section class="FadeIn" id="add-service">
+    <h2 class="FadeLeft">Agregar nuevo servicio</h2>
+    <form id="service-form" enctype="multipart/form-data">
+      <input type="text" id="service-title" name="titulo" placeholder="Título del servicio" required>
+      <textarea id="service-description" name="descripcion" placeholder="Descripción detallada" required></textarea>
+
+      <div class="horizontal-group">
+        <input type="number" id="service-price" name="precio" placeholder="Precio por hora ($)" required>
+        <select id="service-category" name="categoria" required>
+          <option value="" disabled selected>Categoría</option>
+          <option value="Medicina">Medicina</option>
+          <option value="Finanzas">Finanzas</option>
+          <option value="Tecnología">Tecnología</option>
+          <option value="Comestibles">Comestibles</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Recreación">Recreación</option>
+        </select>
+      </div>
+
+      <div class="switch-container">
+        <label class="switch-label">
+          <input type="checkbox" id="service-delivery" name="domicilio">
+          <span class="switch-slider"></span>
+          <span class="switch-text">Servicio a domicilio</span>
+        </label>
+      </div>
+
+      <label for="imagen">Selecciona una imagen:</label>
+      <input type="file" id="imagen" name="imagen" accept="image/*">
+
+      <div id="preview-box">
+        <img id="img-preview" src="#" alt="Vista previa" style="display: none;" />
+      </div>
+
+      <button type="submit">AGREGAR</button>
+    </form>
+  </section>
+
+  <!-- Sección: Lista de servicios -->
+  <section class="FadeUp" id="service-list">
+    <h2>Servicios disponibles</h2>
+    <ul id="services" class="service-list"></ul>
+  </section>
+
+  <!-- Sección NUEVA: Calendario -->
+  <section class="FadeUp" id="calendar-section">
+    <h2>Calendario de Reservas</h2>
+    <div id="calendar">
+      <!-- Aquí tu JS pinta el calendario -->
+    </div>
+  </section>
+
+  <!-- Sección: Ganancias por usuario -->
+  <section class="FadeUp" id="ganancias-usuarios">
+    <h2>Ganancias por usuario</h2>
+    <div id="revenue-summary" class="ganancias-box">
+      <!-- Aquí tu JS pinta las tarjetas de ganancia -->
+    </div>
+  </section>
+
+  <script src="../static/mis_servicios.js"></script>
+</body>
+</html>
