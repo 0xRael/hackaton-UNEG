@@ -47,25 +47,33 @@
             </form>
             <div class="lista-servicios">
                 {% for servicio in servicios %}
-                    <div class="servicio FadeUp">
-                        <div class="servicio-titulo">
-                            <div>
-                                <h2>{{ servicio['titulo'] }}</h2>
-                                <p><b>Autor:</b> {{ servicio['autor'] }}
-                                {% if servicio['categoria'] %}<br><b>Categoria:</b> {{ servicio['categoria'] }}{% endif %}</p>
-                            </div>
-                            {% if servicio['imagen'] %}
-                            <img src="{{ servicio['imagen'] }}" alt="Imagen del servicio">
-                            {% else %}
-                            <img src="https://t3.ftcdn.net/jpg/15/97/33/72/360_F_1597337267_YnjNgC3DRENuEQ0TbRdmeyIR38C8wcxx.jpg" alt="Imagen del servicio">
-                            {% endif %}
+                <div class="servicio FadeUp">
+                    <div class="servicio-titulo">
+                        <div>
+                            <h2>{{ servicio['titulo'] }}</h2>
+                            <p><b>Autor:</b> {{ servicio['autor'] }}
+                            {% if servicio['categoria'] %}<br><b>Categoria:</b> {{ servicio['categoria'] }}{% endif %}</p>
                         </div>
-                        <p>{{ servicio['descripcion'] }}</p>
-                        <p><b>Precio:</b> {{ servicio['precio'] }} $ | 
-                            <b>A domicilio:</b> {{ servicio['a_domicilio'] }}
-                        </p>
-                        <a class="boton-principal" href="/servicio/{{ servicio['id'] }}">Entrar</a>
+                        {% if servicio['imagen'] %}
+                        <img src="{{ servicio['imagen'] }}" alt="Imagen del servicio">
+                        {% else %}
+                        <img src="https://t3.ftcdn.net/jpg/15/97/33/72/360_F_1597337267_YnjNgC3DRENuEQ0TbRdmeyIR38C8wcxx.jpg" alt="Imagen del servicio">
+                        {% endif %}
                     </div>
+                    <p>{{ servicio['descripcion'] }}</p>
+                    <p><b>Precio:</b> {{ servicio['precio'] }} $ | 
+                        <b>A domicilio:</b> {{ servicio['a_domicilio'] }}
+                    </p>
+                    <div class="votos">
+                        <button class="thumb-up" onclick="votarServicio({{ servicio['id'] }}, 'up', this)">
+                            👍 <span class="votos-up">{{ servicio['votos_up'] or 0 }}</span>
+                        </button>
+                        <button class="thumb-down" onclick="votarServicio({{ servicio['id'] }}, 'down', this)">
+                            👎 <span class="votos-down">{{ servicio['votos_down'] or 0 }}</span>
+                        </button>
+                    </div>
+                    <a class="boton-principal" href="/servicio/{{ servicio['id'] }}">Entrar</a>
+                </div>
                 {% endfor %}
                 {% if usuario %}
                     <a class="enlace" href="cargaServicio.html">Agregar un servicio...</a>
@@ -74,5 +82,19 @@
                 {% endif %}
             </div>
         </div>
+        <script>
+function votarServicio(id, tipo, btn) {
+    fetch(`/api/servicios/${id}/votar`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tipo })
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.parentElement.querySelector('.votos-up').textContent = data.votos_up;
+        btn.parentElement.querySelector('.votos-down').textContent = data.votos_down;
+    });
+}
+</script>
     </body>
 </html>

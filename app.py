@@ -36,6 +36,20 @@ def init_db():
     with app.app_context():
         conn = get_db_connection()
         conn.execute('''
+        CREATE TABLE IF NOT EXISTS servicios (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            titulo TEXT NOT NULL,
+            descripcion TEXT NOT NULL,
+            autor TEXT NOT NULL,
+            precio REAL NOT NULL,
+            a_domicilio TEXT NOT NULL,
+            imagen TEXT,
+            categoria TEXT,
+            votos_up INTEGER DEFAULT 0,
+            votos_down INTEGER DEFAULT 0
+        )
+        ''')
+        conn.execute('''
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre TEXT NOT NULL,
@@ -48,18 +62,6 @@ def init_db():
         )
         ''')
         conn.execute('''
-        CREATE TABLE IF NOT EXISTS servicios (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            titulo TEXT NOT NULL,
-            descripcion TEXT NOT NULL,
-            autor TEXT NOT NULL,
-            precio REAL NOT NULL,
-            a_domicilio TEXT NOT NULL,
-            imagen TEXT,
-            categoria TEXT
-        )
-        ''')
-        conn.execute('''
         CREATE TABLE IF NOT EXISTS reservas (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             usuario TEXT NOT NULL,
@@ -67,6 +69,15 @@ def init_db():
             fecha TEXT NOT NULL,
             hora TEXT NOT NULL,
             FOREIGN KEY(servicio_id) REFERENCES servicios(id)
+        )
+        ''')
+        conn.execute('''
+        CREATE TABLE IF NOT EXISTS votos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            usuario TEXT NOT NULL,
+            servicio_id INTEGER NOT NULL,
+            tipo TEXT NOT NULL,
+            UNIQUE(usuario, servicio_id)
         )
         ''')
         conn.commit()
@@ -377,6 +388,44 @@ def api_eliminar_reserva(id):
     conn.commit()
     conn.close()
     return jsonify({"success": True})
+
+@app.route("/api/servicios/<int:id>/votar", methods=["POST"])
+def api_votar_servicio(id):
+    usuario = session.get('usuario')
+    data = request.json
+    tipo = data.get("tipo")  # "up" o "down"
+    conn = get_db_connection()
+
+    voto_existente = conn.execute(
+        'SELECT tipo FROM votos WHERE usuario = ? AND servicio_id = ?', (usuario, id)
+    ).fetchone()
+
+    if voto_existente:
+        # Si el voto es igual, no hacer nada
+        if voto_existente['tipo'] == tipo:
+            servicio = conn.execute('SELECT votos_up, votos_down FROM servicios WHERE id = ?', (id,)).fetchone()
+            conn.close()
+            return jsonify({"votos_up": servicio["votos_up"], "votos_down": servicio["votos_down"]})
+        else:
+            # Cambiar el voto: restar el anterior y sumar el nuevo
+            if voto_existente['tipo'] == "up":
+                conn.execute('UPDATE servicios SET votos_up = votos_up - 1 WHERE id = ?', (id,))
+            else:
+                conn.execute('UPDATE servicios SET votos_down = votos_down - 1 WHERE id = ?', (id,))
+            conn.execute('UPDATE votos SET tipo = ? WHERE usuario = ? AND servicio_id = ?', (tipo, usuario, id))
+    else:
+        # Nuevo voto
+        conn.execute('INSERT INTO votos (usuario, servicio_id, tipo) VALUES (?, ?, ?)', (usuario, id, tipo))
+
+    # Sumar el nuevo voto
+    if tipo == "up":
+        conn.execute('UPDATE servicios SET votos_up = votos_up + 1 WHERE id = ?', (id,))
+    elif tipo == "down":
+        conn.execute('UPDATE servicios SET votos_down = votos_down + 1 WHERE id = ?', (id,))
+    conn.commit()
+    servicio = conn.execute('SELECT votos_up, votos_down FROM servicios WHERE id = ?', (id,)).fetchone()
+    conn.close()
+    return jsonify({"votos_up": servicio["votos_up"], "votos_down": servicio["votos_down"]})
 
 def quitar_acentos(texto):
     return ''.join(c for c in unicodedata.normalize('NFD', texto) if unicodedata.category(c) != 'Mn')
