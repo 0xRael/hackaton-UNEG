@@ -43,6 +43,7 @@ def init_db():
             genero TEXT NOT NULL,
             foto TEXT,
             descripcion TEXT
+            
         )
         ''')
         conn.execute('''
