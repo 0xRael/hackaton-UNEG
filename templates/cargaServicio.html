@@ -32,16 +32,16 @@
 <body>
   <h1 class="FadeDown">SERVICIOS</h1>
 
-  <!-- 🧾 Sección para agregar servicios -->
+  <!-- Sección: Agregar nuevo servicio -->
   <section class="FadeIn" id="add-service">
     <h2 class="FadeLeft">Agregar nuevo servicio</h2>
     <form id="service-form" enctype="multipart/form-data">
-      <input type="text" id="service-title" name="service-title" placeholder="Título del servicio" required>
-      <textarea id="service-description" name="service-description" placeholder="Descripción detallada" required></textarea>
+      <input type="text" id="service-title" name="titulo" placeholder="Título del servicio" required>
+      <textarea id="service-description" name="descripcion" placeholder="Descripción detallada" required></textarea>
 
       <div class="horizontal-group">
-        <input type="number" id="service-price" name="service-price" placeholder="Precio por hora ($)" required>
-        <select id="service-category" name="service-category" required>
+        <input type="number" id="service-price" name="precio" placeholder="Precio por hora ($)" required>
+        <select id="service-category" name="categoria" required>
           <option value="" disabled selected>Categoría</option>
           <option value="Medicina">Medicina</option>
           <option value="Finanzas">Finanzas</option>
@@ -54,7 +54,7 @@
 
       <div class="switch-container">
         <label class="switch-label">
-          <input type="checkbox" id="service-delivery" name="service-delivery">
+          <input type="checkbox" id="service-delivery" name="domicilio">
           <span class="switch-slider"></span>
           <span class="switch-text">Servicio a domicilio</span>
         </label>
@@ -71,22 +71,26 @@
     </form>
   </section>
 
-  <!-- 📋 Lista de servicios -->
-  <section class="FadeUp" id="service-list">
-    <h2>Servicios disponibles</h2>
-    <ul id="services"></ul>
-  </section>
+  <main>
+    <!-- Sección: Lista de Servicios -->
+    <section id="servicios" class="FadeUp">
+      <h2>Servicios Disponibles</h2>
+      <ul id="lista-servicios">
+        <!-- Aquí inyectas tus servicios -->
+      </ul>
+    </section>
 
-  <!-- 💰 Ganancias por usuario -->
-  <section class="FadeUp" id="ganancias-usuarios">
-    <h2>Ganancias por usuario</h2>
-    <div id="revenue-summary" class="ganancias-box">
-      <!-- Contenido generado por JS -->
-    </div>
-    <div class="calendar FadeUp" id="calendar">
-        <!-- Contenido generado por JS -->
-    </div>
-  </section>
+    <!-- Sección (reemplazo del calendario): Ganancia por Servicio -->
+    <section id="ganancias-servicios" class="FadeUp">
+      <h2>Ganancia por Servicio</h2>
+      <ul id="lista-ganancias">
+        <li>Cargando ganancias…</li>
+      </ul>
+    </section>
+  </main>
+
+
+
 
   <script src="../static/mis_servicios.js"></script>
 </body>
