@@ -139,3 +139,24 @@ h1 {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.sin-Sesion {
+text-align: center;
+}
+
+.boton-agregar-servicio {
+  display:block;
+  padding: 10px 20px;
+  background-color: #0077cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1em;
+  box-shadow: 0 0 8px var(--lapis-lazuli);
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+.boton-agregar-servicio:hover {
+  background-color: #005fa3;
+}

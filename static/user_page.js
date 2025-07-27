@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const campos = [
     document.getElementById("nombre"),
     document.getElementById("correo"),
-    document.getElementById("user-description")
+    document.getElementById("user-description"),
+    document.getElementById("direction")
   ];
 
   botonEditar.addEventListener("click", () => {

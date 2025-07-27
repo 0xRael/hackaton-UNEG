@@ -46,7 +46,8 @@
           <div class="datos-usuario">
             <input type="text" id="nombre" name="nombre" value="{{ usuario.nombre }}" disabled>
             <input type="email" id="correo" name="correo" value="{{ usuario.correo }}" disabled>
-            <textarea id="user-description" name="user-description" value="{{ usuario.descripcion }}" disabled></textarea>
+            <textarea id="user-description" name="user-description" value="{{ usuario.descripcion }}" placeholder="Añade una descripción de tí mismo" disabled></textarea>
+            <textarea name="direccion" id="user_direccion" value="{{ usuario.direccion }}" placeholder="Añade tu Dirección"></textarea>
             <div class="botones">
             <button type="button" id="boton-editar">Editar</button>
             <button type="submit" id="guardar" style="display:none">Guardar</button>
@@ -57,8 +58,11 @@
       <a class="boton" type="button" id="cargaServicio" href="/cargaServicio.html">Mis servicios</a>
       <a class="boton" type="button" id="cerrar-sesion" href="/cerrar-sesion">Cerrar Sesión</a>
     {% else %}
+
+    <div class="sin-Sesion">
       <p><strong>No hay una sesión abierta</strong></p>
       <a href="login.html">Iniciar sesión</a>
+    </div>
     {% endif %}
   </div>
 </body>
