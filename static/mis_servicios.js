@@ -38,25 +38,27 @@ async function cargarServicios() {
 
 // 2) Traer y mostrar la ganancia total de cada servicio en #lista-ganancias
 async function cargarGananciasPorServicio() {
-  const ulGanancias = document.getElementById('lista-ganancias');
-  ulGanancias.innerHTML = '<li>Cargando ganancias…</li>';
+  const ul = document.getElementById('lista-ganancias');
+  ul.innerHTML = '<li>Cargando ganancias…</li>';
 
   try {
-    // Ajusta la ruta si tu endpoint es distinto
     const res = await fetch('/api/ganancias/servicios');
-    if (!res.ok) throw new Error(`Status ${res.status}`);
+    if (res.status === 404) {
+      throw new Error('Endpoint no encontrado (404). Revisa la ruta en tu servidor.');
+    }
+    if (!res.ok) {
+      throw new Error(`Error ${res.status}`);
+    }
     const data = await res.json();
-    // espera un objeto: { "Corte de pelo":150, "Manicura":80, ... }
-
-    ulGanancias.innerHTML = '';
-    Object.entries(data).forEach(([servicio, total]) => {
+    ul.innerHTML = '';
+    Object.entries(data).forEach(([serv, total]) => {
       const li = document.createElement('li');
-      li.textContent = `${servicio}: $ ${Number(total).toFixed(2)}`;
-      ulGanancias.appendChild(li);
+      li.textContent = `${serv}: $ ${Number(total).toFixed(2)}`;
+      ul.appendChild(li);
     });
-
   } catch (err) {
     console.error('Error al cargar ganancias:', err);
-    ulGanancias.innerHTML = '<li>Error al cargar ganancias</li>';
+    ul.innerHTML = `<li>${err.message}</li>`;
   }
 }
+
