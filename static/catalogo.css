@@ -98,4 +98,17 @@ option{
     display:grid;
     grid-template-columns: 100%;
   }
+  .servicio-titulo {
+    display:grid;
+    grid-template-columns: 60% 40%;
+    grid-column-gap: 0%;
+    grid-row: auto auto;
+    img {
+      width: 130px;
+      height: 100px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 0 10px #161314;
+    }
+  }
 }
