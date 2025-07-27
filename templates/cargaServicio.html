@@ -2,62 +2,89 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Servicios y Reservas</title>
-  <link rel="stylesheet" href="/static/styles.css"> <!-- tu hoja de estilos -->
+  <title>Servicios de la Tienda</title>
+  <link rel="stylesheet" href="../static/cargServ.css">
+  <link rel="stylesheet" type="text/css" href="../static/global.css">
 </head>
+
+<!-- Barra de navegación -->
+<header>
+  <nav class="navbar">
+    <ul>
+      <li style="align-items: flex-end;">
+        <input id="hide_sidebar" type="image" src="../static/images/X_icon.png"
+               onclick="document.querySelector('.navbar').classList.remove('show')">
+      </li>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="catalogo.html">Servicios</a></li>
+      <li><a href="ruta de tiendas">Tiendas</a></li>
+      {% if usuario %}
+        <li><a href="user_page.html">{{ usuario }}</a></li>
+      {% else %}
+        <li><a href="login.html">Iniciar sesión</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  <input id="show_sidebar" type="image" src="../static/images/Hamburger_icon.svg.png"
+         onclick="document.querySelector('.navbar').classList.add('show')">
+</header>
+
 <body>
-  <!-- Datos del usuario y creador del servicio -->
-  <script>
-    window.usuarioActual = "{{ usuario }}";
-    window.creadorServicio = "{{ servicio.creador }}";
-  </script>
+  <h1 class="FadeDown">SERVICIOS</h1>
 
-  <h1>Gestión de Servicios</h1>
+  <!-- 🧾 Sección para agregar servicios -->
+  <section class="FadeIn" id="add-service">
+    <h2 class="FadeLeft">Agregar nuevo servicio</h2>
+    <form id="service-form" enctype="multipart/form-data">
+      <input type="text" id="service-title" name="service-title" placeholder="Título del servicio" required>
+      <textarea id="service-description" name="service-description" placeholder="Descripción detallada" required></textarea>
 
-  <!-- 🧾 Formulario para agregar/editar servicios -->
-  <form id="service-form" enctype="multipart/form-data">
-    <label for="service-title">Título:</label>
-    <input type="text" id="service-title" name="titulo" required>
+      <div class="horizontal-group">
+        <input type="number" id="service-price" name="service-price" placeholder="Precio por hora ($)" required>
+        <select id="service-category" name="service-category" required>
+          <option value="" disabled selected>Categoría</option>
+          <option value="Medicina">Medicina</option>
+          <option value="Finanzas">Finanzas</option>
+          <option value="Tecnología">Tecnología</option>
+          <option value="Comestibles">Comestibles</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Recreación">Recreación</option>
+        </select>
+      </div>
 
-    <label for="service-description">Descripción:</label>
-    <textarea id="service-description" name="descripcion" required></textarea>
+      <div class="switch-container">
+        <label class="switch-label">
+          <input type="checkbox" id="service-delivery" name="service-delivery">
+          <span class="switch-slider"></span>
+          <span class="switch-text">Servicio a domicilio</span>
+        </label>
+      </div>
 
-    <label for="service-price">Precio:</label>
-    <input type="number" id="service-price" name="precio" step="0.01" required>
+      <label for="imagen">Selecciona una imagen:</label>
+      <input type="file" id="imagen" name="imagen" accept="image/*">
 
-    <label for="service-category">Categoría:</label>
-    <input type="text" id="service-category" name="categoria" required>
+      <div id="preview-box">
+        <img id="img-preview" src="#" alt="Vista previa" style="display: none;" />
+      </div>
 
-    <label for="service-delivery">¿A domicilio?</label>
-    <input type="checkbox" id="service-delivery" name="a_domicilio">
-
-    <label for="imagen">Imagen del servicio:</label>
-    <input type="file" id="imagen" name="imagen" accept="image/*">
-    <img id="img-preview" src="#" alt="Vista previa" style="display:none; max-width:200px; margin-top:10px;">
-
-    <button type="submit">Guardar Servicio</button>
-  </form>
+      <button type="submit">AGREGAR</button>
+    </form>
+  </section>
 
   <!-- 📋 Lista de servicios -->
-  <ul id="services" class="service-list">
-    <!-- Renderizado por JS -->
-  </ul>
+  <section class="FadeUp" id="service-list">
+    <h2>Servicios disponibles</h2>
+    <ul id="services"></ul>
+  </section>
 
-  <!-- 💰 Sección de ganancias por usuario -->
-  <div id="revenue-summary" class="ganancias-box">
-    <!-- Renderizado por JS -->
-  </div>
+  <!-- 💰 Ganancias por usuario -->
+  <section class="FadeUp" id="ganancias-usuarios">
+    <h2>Ganancias por usuario</h2>
+    <div id="revenue-summary" class="ganancias-box">
+      <!-- Contenido generado por JS -->
+    </div>
+  </section>
 
-  <!-- 📆 Calendario de reservas -->
-  <h2>Calendario de Reservas</h2>
-  <div id="calendar" class="calendar-container">
-    <!-- Renderizado por JS -->
-  </div>
-
-  <!-- Solo visible para usuarios externos -->
-  <button id="submit-button">Enviar Horarios Seleccionados</button>
-
-  <!-- Scripts -->
-  <script src="/static/mis_servicios.js"></script> <!-- el archivo con el JS completo -->
+  <script src="../static/mis_servicios.js"></script>
 </body>
 </html>
