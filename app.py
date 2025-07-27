@@ -3,6 +3,7 @@ import sqlite3
 from flask import jsonify
 import os
 from werkzeug.utils import secure_filename
+import unicodedata
 
 app = Flask(__name__)
 app.secret_key = '123123123'
@@ -170,6 +171,7 @@ def catalogo():
     usuario = session.get('usuario')
     categoria = request.args.get('categoria', '')
     busqueda = request.args.get('busqueda', '').strip()
+    busqueda_normalizada = quitar_acentos(busqueda.lower())
     conn = get_db_connection()
     query = 'SELECT * FROM servicios WHERE 1=1'
     params = []
@@ -178,9 +180,8 @@ def catalogo():
         query += ' AND categoria = ?'
         params.append(categoria)
     if busqueda:
-        query += ' AND (titulo LIKE ? OR descripcion LIKE ?)'
-
-        params.extend([f'%{busqueda}%', f'%{busqueda}%'])
+        query += ' AND (lower(titulo) LIKE ? OR lower(descripcion) LIKE ? OR lower(?) LIKE lower(titulo) OR lower(?) LIKE lower(descripcion))'
+        params.extend([f'%{busqueda_normalizada}%', f'%{busqueda_normalizada}%', busqueda, busqueda])
 
     query += ' ORDER BY id DESC'
     servicios = conn.execute(query, params).fetchall()
@@ -375,6 +376,9 @@ def api_eliminar_reserva(id):
     conn.commit()
     conn.close()
     return jsonify({"success": True})
+
+def quitar_acentos(texto):
+    return ''.join(c for c in unicodedata.normalize('NFD', texto) if unicodedata.category(c) != 'Mn')
 
 if __name__ == '__main__':  
    app.run(host="0.0.0.0", port=80, debug=True)
