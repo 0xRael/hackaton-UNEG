@@ -160,6 +160,11 @@ def login():
             return redirect('/login.html')
     return render_template('login.html')
 
+@app.route("/cerrar-sesion")
+def cerrar_sesion():
+    session['usuario'] = None
+    return redirect('/login.html')
+
 @app.route("/catalogo.html")
 def catalogo():
     usuario = session.get('usuario')
