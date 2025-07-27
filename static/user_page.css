@@ -114,6 +114,19 @@ textarea {
 .botones button:hover {
   background-color: #005fa3;
 }
+
+.boton {
+  margin: 10px 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #0077cc;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95em;
+  transition: background-color 0.3s;
+}
+
 h1 {
   text-align: center;
   font-size: 4rem;

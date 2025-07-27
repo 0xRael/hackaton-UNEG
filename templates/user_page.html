@@ -53,12 +53,10 @@
             <button type="submit" id="guardar" style="display:none">Guardar</button>
         </div>
         </div>
-        </div>
-        <br>
-        <div> <a href="cargaServicio.html" class="boton-agregar-servicio">Agregar un servicio...</a></div>
-
-        
+      </div>
       </form>
+      <a class="boton" type="button" id="cargaServicio" href="/cargaServicio.html">Mis servicios</a>
+      <a class="boton" type="button" id="cerrar-sesion" href="/cerrar-sesion">Cerrar Sesión</a>
     {% else %}
 
     <div class="sin-Sesion">
@@ -68,5 +66,6 @@
     {% endif %}
   </div>
 </body>
+<script src="../static/mis_servicios.js"></script>
 <script src="../static/user_page.js"></script>
 </html>
