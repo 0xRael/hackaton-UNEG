@@ -52,27 +52,10 @@
             <button type="submit" id="guardar" style="display:none">Guardar</button>
         </div>
         </div>
-        </div>
-
-        <div class="servicios-seccion">
-         <!-- HTML -->
-<form id="service-form" enctype="multipart/form-data">
-  <input type="text" id="service-title" name="titulo" placeholder="Título" required />
-  <textarea id="service-description" name="descripcion" placeholder="Descripción" required></textarea>
-  <input type="number" id="service-price" name="precio" placeholder="Precio" required />
-  <input type="text" id="service-category" name="categoria" placeholder="Categoría" required />
-  <label><input type="checkbox" id="service-delivery" /> ¿A domicilio?</label>
-  <input type="file" id="imagen" name="imagen" accept="image/*" />
-  <img id="img-preview" style="display:none;" />
-  <button type="submit">Guardar Servicio</button>
-</form>
-
-<ul id="services"></ul>
-
-        </div>
-
-        
+      </div>
       </form>
+      <a class="boton" type="button" id="cargaServicio" href="/cargaServicio.html">Mis servicios</a>
+      <a class="boton" type="button" id="cerrar-sesion" href="/cerrar-sesion">Cerrar Sesión</a>
     {% else %}
       <p><strong>No hay una sesión abierta</strong></p>
       <a href="login.html">Iniciar sesión</a>
